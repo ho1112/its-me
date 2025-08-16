@@ -48,3 +48,6 @@ next-env.d.ts
 
 # OS
 Thumbs.db
+
+# development notes
+devNote.md
