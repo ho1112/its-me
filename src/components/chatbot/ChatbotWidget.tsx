@@ -22,7 +22,8 @@ const languageTexts = {
     send: '전송',
     sending: '전송 중...',
     error: '죄송합니다. 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-    languageToggle: '🇯🇵 日本語'
+    languageToggle: '🇯🇵 日本語',
+    themeToggle: '🌙'
   },
   ja: {
     welcome: 'こんにちは！履歴書チャットボットです。ご質問がございましたら、いつでもお聞かせください！🚀',
@@ -32,7 +33,8 @@ const languageTexts = {
     send: '送信',
     sending: '送信中...',
     error: '申し訳ございません。一時的なエラーが発生しました。しばらくしてから再度お試しください。',
-    languageToggle: '🇰🇷 한국어'
+    languageToggle: '🇰🇷 한국어',
+    themeToggle: '🌙'
   }
 }
 
@@ -57,16 +59,32 @@ export default function ChatbotWidget() {
     return 'ko';
   };
 
+  // 테마 감지 함수
+  const getTheme = () => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const theme = urlParams.get('theme');
+      return theme === 'dark' ? 'dark' : 'light';
+    }
+    return 'light';
+  };
+
   const [currentLang, setCurrentLang] = useState<'ko' | 'ja'>('ko');
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
   const [chatMessages, setChatMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  // 언어 초기화
+  // 언어와 테마 초기화
   useEffect(() => {
     const detectedLang = getLanguage();
+    const detectedTheme = getTheme();
     setCurrentLang(detectedLang);
+    setCurrentTheme(detectedTheme);
+    
+    // 테마 적용
+    document.documentElement.classList.toggle('dark', detectedTheme === 'dark');
   }, []);
 
   // 언어 변경 함수
@@ -77,6 +95,20 @@ export default function ChatbotWidget() {
     // URL 업데이트 (쿼리 파라미터)
     const url = new URL(window.location.href);
     url.searchParams.set('lang', newLang);
+    window.history.pushState({}, '', url.toString());
+  };
+
+  // 테마 변경 함수
+  const toggleTheme = () => {
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setCurrentTheme(newTheme);
+    
+    // 테마 적용
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    
+    // URL 업데이트 (쿼리 파라미터)
+    const url = new URL(window.location.href);
+    url.searchParams.set('theme', newTheme);
     window.history.pushState({}, '', url.toString());
   };
 
@@ -153,22 +185,31 @@ export default function ChatbotWidget() {
   }
 
   return (
-    <div className="w-full h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <Card className="w-full max-w-4xl h-[90vh] shadow-2xl border-0 bg-white/90 backdrop-blur-sm flex flex-col">
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 rounded-t-lg flex-shrink-0 relative">
+    <div className="w-full h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
+      <Card className="w-full max-w-4xl h-[90vh] shadow-2xl border-0 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm flex flex-col">
+        <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-gray-700 dark:to-gray-600 text-white p-6 rounded-t-lg flex-shrink-0 relative">
           {/* 언어 변경 버튼 */}
           <Button
             onClick={toggleLanguage}
-            className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 text-white border-white/30"
+            className="absolute top-4 right-16 bg-white/20 hover:bg-white/30 text-white border-white/30"
             size="sm"
           >
             {languageTexts[currentLang].languageToggle}
           </Button>
           
+          {/* 테마 변경 버튼 */}
+          <Button
+            onClick={toggleTheme}
+            className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 text-white border-white/30"
+            size="sm"
+          >
+            {currentTheme === 'light' ? '🌙' : '☀️'}
+          </Button>
+          
           <CardTitle className="text-2xl font-bold text-center">
             {languageTexts[currentLang].title}
           </CardTitle>
-          <p className="text-blue-100 text-center mt-2">
+          <p className="text-blue-100 dark:text-gray-300 text-center mt-2">
             {languageTexts[currentLang].subtitle}
           </p>
         </CardHeader>
@@ -185,12 +226,12 @@ export default function ChatbotWidget() {
                   className={`max-w-[80%] rounded-2xl px-4 py-3 shadow-sm ${
                     message.role === 'user'
                       ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white'
-                      : 'bg-gray-50 text-gray-800 border border-gray-200'
+                      : 'bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600'
                   }`}
                 >
                   <p className="text-sm leading-relaxed">{message.content}</p>
                   <p className={`text-xs mt-2 ${
-                    message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
+                    message.role === 'user' ? 'text-blue-100' : 'text-gray-500 dark:text-gray-400'
                   }`}>
                     {message.timestamp.toLocaleTimeString()}
                   </p>
@@ -200,7 +241,7 @@ export default function ChatbotWidget() {
             
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-gray-50 rounded-2xl px-4 py-3 border border-gray-200">
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-2xl px-4 py-3 border border-gray-200 dark:border-gray-600">
                   <div className="flex space-x-2">
                     <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
                     <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -214,14 +255,14 @@ export default function ChatbotWidget() {
           </div>
 
           {/* 입력 폼 */}
-          <div className="p-6 border-t border-gray-200 bg-gray-50 rounded-b-lg flex-shrink-0">
+          <div className="p-6 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-b-lg flex-shrink-0">
             <form onSubmit={handleSubmit} className="flex space-x-3">
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder={languageTexts[currentLang].placeholder}
                 disabled={isLoading}
-                className="flex-1 border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-xl px-4 py-3 text-base"
+                className="flex-1 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-xl px-4 py-3 text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               />
               <Button 
                 type="submit" 
