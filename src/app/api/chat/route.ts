@@ -1,24 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-
-// 임시 응답 데이터 (나중에 RAG 파이프라인으로 교체)
-const mockResponses = {
-  ko: {
-    '안녕': '안녕하세요! 저는 이력서 챗봇입니다. 궁금한 점이 있으시면 언제든 물어보세요!',
-    '이름': '안녕하세요! 저는 이호연입니다. 프론트엔드 개발자로 일하고 있습니다.',
-    '경력': '프론트엔드 개발 경험은 총 5년입니다. React, Vue.js, TypeScript를 주로 사용해왔습니다.',
-    '기술': '주요 기술 스택은 React, TypeScript, Next.js, Tailwind CSS입니다. 백엔드로는 Node.js, Python도 다룰 수 있습니다.',
-    '프로젝트': '최근에는 Next.js와 TypeScript를 활용한 웹 애플리케이션 개발에 집중하고 있습니다. 이력서 챗봇도 그 중 하나입니다!',
-    '연락처': '이메일: leehoyeon@example.com, GitHub: @ho1112로 연락 가능합니다.',
-  },
-  ja: {
-    'こんにちは': 'こんにちは！履歴書チャットボットです。ご質問がございましたら、いつでもお聞かせください！',
-    '名前': 'こんにちは！私は李浩妍です。フロントエンド開発者として働いています。',
-    '経歴': 'フロントエンド開発の経験は合計5年です。React、Vue.js、TypeScriptを主に使用してきました。',
-    '技術': '主な技術スタックはReact、TypeScript、Next.js、Tailwind CSSです。バックエンドではNode.js、Pythonも扱えます。',
-    'プロジェクト': '最近はNext.jsとTypeScriptを活用したWebアプリケーション開発に集中しています。履歴書チャットボットもその一つです！',
-    '連絡先': 'メール: leehoyeon@example.com、GitHub: @ho1112で連絡可能です。',
-  }
-};
+import { GoogleGenerativeAI } from '@google/generative-ai'
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,35 +12,69 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 언어별 응답 데이터 선택
-    const responses = mockResponses[language as keyof typeof mockResponses] || mockResponses.ko;
-    
-    // 임시 로직: 키워드 기반 응답 (나중에 RAG로 교체)
-    let response = language === 'ja' 
-      ? '申し訳ございません。その質問に対する回答を準備できませんでした。他の質問をしてください！'
-      : '죄송합니다. 해당 질문에 대한 답변을 준비하지 못했습니다. 다른 질문을 해주세요!';
-    
-    for (const [keyword, reply] of Object.entries(responses)) {
-      if (message.includes(keyword)) {
-        response = reply
-        break
-      }
+    // Gemini API 키 확인
+    const apiKey = process.env.GEMINI_API_KEY
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'Gemini API 키가 설정되지 않았습니다.' },
+        { status: 500 }
+      )
     }
 
-    // 실제 API 호출 시에는 여기서 RAG 파이프라인 실행
-    // const ragResponse = await executeRAGPipeline(message, language)
+    // Gemini 모델 초기화 (빠른 응답을 위한 Flash 모델 사용)
+    const genAI = new GoogleGenerativeAI(apiKey)
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
+
+    // 언어별 프롬프트 설정
+    const languagePrompt = language === 'ja' 
+      ? '일본어로 답변해주세요: '
+      : '한국어로 답변해주세요: '
+
+    // 임시 포트폴리오 정보 (나중에 RAG 데이터로 교체)
+    const portfolioContext = `
+    이력서 챗봇입니다. 다음 정보를 바탕으로 답변해주세요:
     
-    // 응답 지연 시뮬레이션 (실제 AI 응답 시간과 비슷하게)
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    이름: 이호연
+    직함: 프론트엔드 개발자
+    경력: 5년
+    주요 기술: React, TypeScript, Next.js, Tailwind CSS
+    최근 프로젝트: AI 기반 포트폴리오 챗봇 "잇츠미" 개발
+    
+    사용자 질문: ${message}
+    `
+
+    const prompt = `${languagePrompt}${portfolioContext}`
+
+    // AI 응답 생성
+    const result = await model.generateContent(prompt)
+    const response = await result.response
+    const text = response.text()
 
     return NextResponse.json({
-      response,
+      response: text,
       language,
       timestamp: new Date().toISOString(),
     })
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Chat API Error:', error)
+    
+    // 할당량 초과 에러 처리
+    if (error.message?.includes('429') || error.message?.includes('quota')) {
+      return NextResponse.json(
+        { error: 'API 할당량이 초과되었습니다. 잠시 후 다시 시도해주세요.' },
+        { status: 429 }
+      )
+    }
+    
+    // 모델을 찾을 수 없는 에러 처리
+    if (error.message?.includes('404') || error.message?.includes('not found')) {
+      return NextResponse.json(
+        { error: 'AI 모델을 찾을 수 없습니다. 설정을 확인해주세요.' },
+        { status: 500 }
+      )
+    }
+    
     return NextResponse.json(
       { error: '서버 오류가 발생했습니다.' },
       { status: 500 }
