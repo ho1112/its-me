@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@google/genai": "^1.14.0",
+    "@langchain/community": "^0.3.51",
+    "@langchain/core": "^0.3.71",
     "@langchain/google-genai": "^0.2.16",
     "@radix-ui/react-slot": "^1.2.3",
     "@supabase/supabase-js": "^2.55.0",

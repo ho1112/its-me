@@ -31,7 +31,7 @@ async function generateEmbedding(text) {
     const result = await genAI.models.embedContent({
       model: "gemini-embedding-001",
       contents: text,
-      config: { outputDimensionality: 768 }
+      config: { outputDimensionality: 3072 }
     });
     
     const embedding = result.embeddings[0].values;
