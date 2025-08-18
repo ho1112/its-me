@@ -1,31 +1,30 @@
--- Supabase에서 벡터 유사도 검색을 위한 함수 생성
--- 이 SQL을 Supabase SQL 에디터에서 실행해야 합니다
-
-CREATE OR REPLACE FUNCTION match_documents(
-  query_embedding vector(768),
-  match_threshold float DEFAULT 0.7,
-  match_count int DEFAULT 3
-)
-RETURNS TABLE (
-  id integer,
-  question text,
-  answer_ko text,
-  answer_ja text,
-  similarity float
+-- LangChain과 호환되는 벡터 검색 함수 (id 타입 수정)
+CREATE OR REPLACE FUNCTION match_documents (
+  query_embedding VECTOR(3072),
+  match_count INT,
+  filter JSONB
+) RETURNS TABLE (
+  id BIGINT,
+  content TEXT,
+  metadata JSONB,
+  similarity FLOAT
 )
 LANGUAGE plpgsql
 AS $$
 BEGIN
   RETURN QUERY
   SELECT
-    itsme.id,
-    itsme.question,
-    itsme.answer_ko,
-    itsme.answer_ja,
+    itsme.id::bigint,
+    itsme.question AS content,        -- 질문을 content로
+    jsonb_build_object(
+      'answer_ko', itsme.answer_ko,  -- 한국어 답변
+      'answer_ja', itsme.answer_ja   -- 일본어 답변
+    ) AS metadata,
     1 - (itsme.embedding <=> query_embedding) AS similarity
-  FROM itsme
-  WHERE 1 - (itsme.embedding <=> query_embedding) > match_threshold
-  ORDER BY itsme.embedding <=> query_embedding
+  FROM
+    itsme
+  ORDER BY
+    itsme.embedding <=> query_embedding
   LIMIT match_count;
 END;
 $$;

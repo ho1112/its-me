@@ -4,12 +4,14 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ChatImage } from './ChatImage'
 
 interface Message {
   id: string
   content: string
   role: 'user' | 'assistant'
   timestamp: Date
+  imagePaths?: string[] | null
 }
 
 // 다국어 텍스트 정의
@@ -165,7 +167,8 @@ export default function ChatbotWidget() {
           id: (Date.now() + 1).toString(),
           content: data.response,
           role: 'assistant',
-          timestamp: new Date()
+          timestamp: new Date(),
+          imagePaths: data.imagePaths || null
         }
         setChatMessages(prev => [...prev, assistantMessage])
       } else {
@@ -218,25 +221,13 @@ export default function ChatbotWidget() {
           {/* 메시지 영역 */}
           <div className="flex-1 overflow-y-auto p-6 space-y-4 min-h-0">
             {chatMessages.map((message) => (
-              <div
+              <ChatImage
                 key={message.id}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-3 shadow-sm ${
-                    message.role === 'user'
-                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white'
-                      : 'bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-600'
-                  }`}
-                >
-                  <p className="text-sm leading-relaxed">{message.content}</p>
-                  <p className={`text-xs mt-2 ${
-                    message.role === 'user' ? 'text-blue-100' : 'text-gray-500 dark:text-gray-400'
-                  }`}>
-                    {message.timestamp.toLocaleTimeString()}
-                  </p>
-                </div>
-              </div>
+                message={message.content}
+                isUser={message.role === 'user'}
+                imagePaths={message.imagePaths}
+                timestamp={message.timestamp.toISOString()}
+              />
             ))}
             
             {isLoading && (
