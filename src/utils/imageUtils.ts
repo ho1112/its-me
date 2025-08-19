@@ -10,11 +10,9 @@ export const getImageUrl = (imagePath: string | null): string | null => {
     return imagePath
   }
   
-  // 로컬 이미지인 경우 - Vercel 배포 주소 사용
+  // 로컬 이미지인 경우 - 위젯에서는 항상 Vercel 배포 주소 사용
   // 위젯이 임베딩된 외부 사이트에서도 이미지에 접근할 수 있도록
-  const baseUrl = process.env.NODE_ENV === 'production'
-    ? 'https://its-me-vert.vercel.app'
-    : 'http://localhost:3000'
+  const baseUrl = 'https://its-me-vert.vercel.app'
   
   // 이미 /images/로 시작하면 그대로, 아니면 추가
   if (imagePath.startsWith('/images/')) {
