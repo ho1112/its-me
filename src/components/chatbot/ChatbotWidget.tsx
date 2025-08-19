@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import ReactDOM from 'react-dom/client';
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -152,8 +153,14 @@ export default function ChatbotWidget() {
     setIsLoading(true)
 
     try {
-      // TODO: API 호출 구현
-      const response = await fetch('/api/chat', {
+      // API 주소를 전체 경로로 변경합니다.
+      // 로컬 테스트 시에는 'http://localhost:3000/api/chat'
+      // Vercel 배포 후에는 'https://its-me-vert.vercel.app/api/chat'
+      const apiUrl = process.env.NODE_ENV === 'production'
+        ? 'https://its-me-vert.vercel.app/api/chat' // Vercel 배포 주소
+        : 'http://localhost:3000/api/chat';       // Next.js 개발 서버 주소
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -268,4 +275,19 @@ export default function ChatbotWidget() {
       </Card>
     </div>
   )
+}
+
+// 위젯이 로드될 때 React와 ReactDOM을 전역으로 노출
+if (typeof window !== 'undefined') {
+  // React와 ReactDOM을 전역으로 노출
+  (window as any).React = React;
+  (window as any).ReactDOM = ReactDOM;
+  
+  // 위젯 컴포넌트를 전역으로 노출 (default 속성으로)
+  (window as any).ItsMeChatbot = {
+    default: ChatbotWidget,
+    ChatbotWidget,
+    React,
+    ReactDOM
+  };
 }

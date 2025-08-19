@@ -108,6 +108,18 @@ const ragChain = RunnableSequence.from([
   new StringOutputParser()
 ])
 
+// OPTIONS 요청 처리 (CORS preflight)
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    }
+  })
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { message, language = 'ko' } = await request.json()
@@ -115,7 +127,14 @@ export async function POST(request: NextRequest) {
     if (!message) {
       return NextResponse.json(
         { error: '메시지가 필요합니다.' },
-        { status: 400 }
+        { 
+          status: 400,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          }
+        }
       )
     }
 
@@ -130,7 +149,14 @@ export async function POST(request: NextRequest) {
       console.error('❌ Supabase 연결 실패:', testError)
       return NextResponse.json(
         { error: '데이터베이스 연결에 실패했습니다.' },
-        { status: 500 }
+        { 
+          status: 500,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          }
+        }
       )
     }
     
@@ -160,6 +186,12 @@ export async function POST(request: NextRequest) {
       language,
       imagePaths,  // 이미지 경로들 추가
       timestamp: new Date().toISOString(),
+    }, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      }
     })
 
   } catch (error: any) {
@@ -169,7 +201,14 @@ export async function POST(request: NextRequest) {
     if (error.message?.includes('429') || error.message?.includes('quota')) {
       return NextResponse.json(
         { error: 'API 할당량이 초과되었습니다. 잠시 후 다시 시도해주세요.' },
-        { status: 429 }
+        { 
+          status: 429,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          }
+        }
       )
     }
     
@@ -177,13 +216,27 @@ export async function POST(request: NextRequest) {
     if (error.message?.includes('404') || error.message?.includes('not found')) {
       return NextResponse.json(
         { error: 'AI 모델을 찾을 수 없습니다. 설정을 확인해주세요.' },
-        { status: 500 }
+        { 
+          status: 500,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          }
+        }
       )
     }
     
     return NextResponse.json(
       { error: '서버 오류가 발생했습니다.' },
-      { status: 500 }
+      { 
+        status: 500,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        }
+      }
     )
   }
 }
