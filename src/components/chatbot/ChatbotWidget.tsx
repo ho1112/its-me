@@ -41,10 +41,20 @@ const languageTexts = {
   }
 }
 
-export default function ChatbotWidget() {
+interface ChatbotWidgetProps {
+  apiUrl: string;
+  initialLang: string;
+}
+
+export default function ChatbotWidget({ apiUrl, initialLang }: ChatbotWidgetProps) {
   // 언어 감지 함수
   const getLanguage = () => {
-    // 1. 쿼리 파라미터 우선 (블로그 삽입용)
+    // 1. props에서 전달받은 언어 우선
+    if (initialLang === 'ja' || initialLang === 'ko') {
+      return initialLang;
+    }
+    
+    // 2. 쿼리 파라미터 (블로그 삽입용)
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const queryLang = urlParams.get('lang');
@@ -52,13 +62,13 @@ export default function ChatbotWidget() {
         return queryLang;
       }
       
-      // 2. URL 경로 감지 (독립 운용용)
+      // 3. URL 경로 감지 (독립 운용용)
       const path = window.location.pathname;
       if (path.includes('/ja')) return 'ja';
       if (path.includes('/ko')) return 'ko';
     }
     
-    // 3. 기본값
+    // 4. 기본값
     return 'ko';
   };
 
@@ -153,13 +163,7 @@ export default function ChatbotWidget() {
     setIsLoading(true)
 
     try {
-      // API 주소를 전체 경로로 변경합니다.
-      // 로컬 테스트 시에는 'http://localhost:3000/api/chat'
-      // Vercel 배포 후에는 'https://its-me-vert.vercel.app/api/chat'
-      const apiUrl = process.env.NODE_ENV === 'production'
-        ? 'https://its-me-vert.vercel.app/api/chat' // Vercel 배포 주소
-        : 'http://localhost:3000/api/chat';       // Next.js 개발 서버 주소
-
+      // props로 받은 apiUrl을 사용합니다.
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {

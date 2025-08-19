@@ -8,10 +8,15 @@ import '@/app/globals.css'
 
 // 위젯 자동 초기화 함수
 function initWidget() {
-  // URL 파라미터에서 설정값 읽기
   const script = document.currentScript as HTMLScriptElement
-  const params = new URLSearchParams(script?.src.split('?')[1] || '')
   
+  // 1. data-api-url 속성에서 API 주소를 읽어옵니다.
+  //    없을 경우, Vercel의 실제 주소를 기본값으로 사용합니다.
+  //    외부 사이트에서는 data-api-url 없이 사용하면 자동으로 Vercel API 사용
+  const apiUrl = script.getAttribute('data-api-url') || 'https://its-me-vert.vercel.app/api/chat'
+  
+  // 2. URL 파라미터에서 설정값 읽기
+  const params = new URLSearchParams(script?.src.split('?')[1] || '')
   const lang = params.get('lang') || 'ko'
   const theme = params.get('theme') || 'light'
   
@@ -32,13 +37,15 @@ function initWidget() {
     }
   }
   
-  // React 컴포넌트 렌더링
+  // 3. React 컴포넌트를 렌더링할 때, apiUrl을 prop으로 전달합니다.
   const root = createRoot(container)
   root.render(
-    <ChatbotWidget />
+    <React.StrictMode>
+      <ChatbotWidget apiUrl={apiUrl} initialLang={lang} />
+    </React.StrictMode>
   )
   
-  console.log('🎉 Its-Me 챗봇 위젯이 초기화되었습니다!', { lang, theme })
+  console.log('🎉 Its-Me 챗봇 위젯이 초기화되었습니다!', { apiUrl, lang, theme })
 }
 
 // DOM이 준비되면 자동 초기화

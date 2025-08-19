@@ -4,7 +4,10 @@ export default function Home() {
   return (
     <main>
       {/* AI 챗봇 위젯 - 화면 중앙에 고정 표시 */}
-      <ChatbotWidget />
+      <ChatbotWidget
+        apiUrl="/api/chat"
+        initialLang="ko"
+      />
     </main>
   )
 }
