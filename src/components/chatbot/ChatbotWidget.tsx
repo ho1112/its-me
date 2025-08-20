@@ -199,27 +199,9 @@ export default function ChatbotWidget({ apiUrl, initialLang }: ChatbotWidgetProp
   }
 
   return (
-    <div className="w-full h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
-      <Card className="w-full max-w-4xl h-[90vh] shadow-2xl border-0 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm flex flex-col">
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-gray-700 dark:to-gray-600 text-white p-6 rounded-t-lg flex-shrink-0 relative">
-          {/* 언어 변경 버튼 */}
-          <Button
-            onClick={toggleLanguage}
-            className="absolute top-4 right-16 bg-white/20 hover:bg-white/30 text-white border-white/30"
-            size="sm"
-          >
-            {languageTexts[currentLang].languageToggle}
-          </Button>
-          
-          {/* 테마 변경 버튼 */}
-          <Button
-            onClick={toggleTheme}
-            className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 text-white border-white/30"
-            size="sm"
-          >
-            {currentTheme === 'light' ? '🌙' : '☀️'}
-          </Button>
-          
+    <div className="w-full h-auto flex items-center justify-center p-4">
+      <Card className="w-full max-w-4xl h-auto min-h-[600px] shadow-2xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 flex flex-col">
+        <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-gray-700 dark:to-gray-600 text-white p-6 rounded-t-lg flex-shrink-0">
           <CardTitle className="text-2xl font-bold text-center">
             {languageTexts[currentLang].title}
           </CardTitle>
