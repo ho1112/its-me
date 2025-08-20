@@ -1,63 +1,81 @@
-// 위젯 엔트리 포인트
-import React from 'react'
+// src/WidgetEntry.tsx
+
+import React, { Suspense, lazy } from 'react'
 import { createRoot } from 'react-dom/client'
-import ChatbotWidget from '@/components/chatbot/ChatbotWidget'
 
-// ★★★ Tailwind CSS를 포함한 전역 스타일을 불러옵니다 ★★★
-import '@/app/globals.css'
+// Tailwind CSS를 포함한 전역 스타일을 불러옵니다.
+import '@/app/globals.css' 
 
-// 위젯 자동 초기화 함수
-function initWidget() {
-  const script = document.currentScript as HTMLScriptElement
-  
-  // 1. data-api-url 속성에서 API 주소를 읽어옵니다.
-  //    없을 경우, Vercel의 실제 주소를 기본값으로 사용합니다.
-  //    외부 사이트에서는 data-api-url 없이 사용하면 자동으로 Vercel API 사용
-  const apiUrl = script.getAttribute('data-api-url') || 'https://its-me-vert.vercel.app/api/chat'
-  
-  // 2. URL 파라미터에서 설정값 읽기
-  const params = new URLSearchParams(script?.src.split('?')[1] || '')
-  const lang = params.get('lang') || 'ko'
-  const theme = params.get('theme') || 'light'
-  
-  // 컨테이너 찾기 (다양한 방법으로 시도)
-  let container = document.getElementById('its-me-chatbot-container')
-  
-  if (!container) {
-    // 컨테이너가 없으면 스크립트 태그 바로 다음에 생성
-    container = document.createElement('div')
-    container.id = 'its-me-chatbot-container'
-    container.style.width = '100%'
-    container.style.height = '600px'
-    
-    if (script && script.parentNode) {
-      script.parentNode.insertBefore(container, script.nextSibling)
-    } else {
-      document.body.appendChild(container)
+// 1. 간단한 로딩 인디케이터 컴포넌트를 만듭니다.
+const LoadingIndicator = () => {
+  const style: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    minHeight: '600px',
+    fontSize: '24px',
+    color: '#9ca3af',
+    fontFamily: 'monospace',
+  };
+  const dotStyle: React.CSSProperties = {
+    animation: 'blink 1.4s infinite both',
+    margin: '0 2px',
+  };
+  const dot2Style: React.CSSProperties = { ...dotStyle, animationDelay: '0.2s' };
+  const dot3Style: React.CSSProperties = { ...dotStyle, animationDelay: '0.4s' };
+
+  // 로딩 애니메이션을 위한 스타일 태그를 동적으로 추가합니다.
+  const keyframes = `
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0; }
+      40% { opacity: 1; }
     }
-  }
+  `;
   
-  // 3. React 컴포넌트를 렌더링할 때, apiUrl을 prop으로 전달합니다.
-  const root = createRoot(container)
+  return (
+    <div style={style}>
+      <style>{keyframes}</style>
+      <span style={dotStyle}>.</span>
+      <span style={dot2Style}>.</span>
+      <span style={dot3Style}>.</span>
+    </div>
+  );
+};
+
+// 2. 메인 챗봇 위젯을 '지연 로딩(lazy loading)'하도록 설정합니다.
+const ChatbotWidget = lazy(() => import('@/components/chatbot/ChatbotWidget'));
+
+// 3. 위젯 초기화 함수
+function initWidget() {
+  const container = document.getElementById('its-me-chatbot-container');
+  if (!container) {
+    console.error("챗봇을 삽입할 '#its-me-chatbot-container' div를 찾을 수 없습니다.");
+    return;
+  }
+
+  // 외부에서 전달된 설정값들을 읽어옵니다.
+  const script = document.currentScript as HTMLScriptElement;
+  const apiUrl = script.getAttribute('data-api-url') || 'https://its-me-vert.vercel.app/api/chat';
+  const lang = new URLSearchParams(script?.src.split('?')[1] || '').get('lang') || 'ko';
+  const theme = new URLSearchParams(script?.src.split('?')[1] || '').get('theme') || 'light';
+  
+  const root = createRoot(container);
   root.render(
     <React.StrictMode>
-      <ChatbotWidget apiUrl={apiUrl} initialLang={lang} />
+      {/* 4. Suspense를 사용해 로딩 상태를 React가 직접 관리하도록 합니다. */}
+      <Suspense fallback={<LoadingIndicator />}>
+        <ChatbotWidget apiUrl={apiUrl} initialLang={lang} initialTheme={theme} />
+      </Suspense>
     </React.StrictMode>
-  )
+  );
   
-  console.log('🎉 Its-Me 챗봇 위젯이 초기화되었습니다!', { apiUrl, lang, theme })
+  console.log('🎉 Its-Me 챗봇 위젯이 초기화되었습니다!');
 }
 
-// DOM이 준비되면 자동 초기화
+// DOM이 준비되면 위젯 초기화를 시작합니다.
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initWidget)
+  document.addEventListener('DOMContentLoaded', initWidget);
 } else {
-  // 이미 로드된 경우 즉시 실행
-  initWidget()
-}
-
-// 전역으로 노출 (필요한 경우)
-;(window as any).ItsMeChatbot = {
-  init: initWidget,
-  ChatbotWidget
+  initWidget();
 }

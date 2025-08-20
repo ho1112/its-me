@@ -44,9 +44,10 @@ const languageTexts = {
 interface ChatbotWidgetProps {
   apiUrl: string;
   initialLang: string;
+  initialTheme: string;
 }
 
-export default function ChatbotWidget({ apiUrl, initialLang }: ChatbotWidgetProps) {
+export default function ChatbotWidget({ apiUrl, initialLang, initialTheme }: ChatbotWidgetProps) {
   // 언어 감지 함수
   const getLanguage = () => {
     // 1. props에서 전달받은 언어 우선
@@ -74,11 +75,19 @@ export default function ChatbotWidget({ apiUrl, initialLang }: ChatbotWidgetProp
 
   // 테마 감지 함수
   const getTheme = () => {
+    // 1. props에서 전달받은 테마 우선
+    if (initialTheme === 'dark' || initialTheme === 'light') {
+      return initialTheme;
+    }
+    
+    // 2. 쿼리 파라미터 (블로그 삽입용)
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const theme = urlParams.get('theme');
       return theme === 'dark' ? 'dark' : 'light';
     }
+    
+    // 3. 기본값
     return 'light';
   };
 

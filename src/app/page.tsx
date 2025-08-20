@@ -7,6 +7,7 @@ export default function Home() {
       <ChatbotWidget
         apiUrl="/api/chat"
         initialLang="ko"
+        initialTheme="light"
       />
     </main>
   )
