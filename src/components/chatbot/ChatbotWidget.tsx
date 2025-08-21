@@ -70,7 +70,7 @@ export default function ChatbotWidget({ apiUrl, initialLang, initialTheme }: Cha
     }
     
     // 4. 기본값
-    return 'ko';
+    return 'ja';
   };
 
   // 테마 감지 함수
@@ -91,7 +91,7 @@ export default function ChatbotWidget({ apiUrl, initialLang, initialTheme }: Cha
     return 'light';
   };
 
-  const [currentLang, setCurrentLang] = useState<'ko' | 'ja'>('ko');
+  const [currentLang, setCurrentLang] = useState<'ko' | 'ja'>('ja');
   const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
   const [chatMessages, setChatMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
