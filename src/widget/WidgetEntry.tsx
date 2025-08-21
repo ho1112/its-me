@@ -41,7 +41,7 @@ function initWidget() {
   const root = createRoot(container)
   root.render(
     <React.StrictMode>
-      <ChatbotWidget apiUrl={apiUrl} initialLang={lang} initialTheme={theme} />
+              <ChatbotWidget apiUrl={apiUrl} />
     </React.StrictMode>
   )
   

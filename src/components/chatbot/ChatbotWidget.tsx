@@ -24,9 +24,7 @@ const languageTexts = {
     placeholder: '질문을 입력하세요... (예: 경력, 기술, 프로젝트 등)',
     send: '전송',
     sending: '전송 중...',
-    error: '죄송합니다. 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-    languageToggle: '🇯🇵 日本語',
-    themeToggle: '🌙'
+    error: '죄송합니다. 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
   },
   ja: {
     welcome: 'こんにちは！履歴書チャットボットです。ご質問がございましたら、いつでもお聞かせください！🚀',
@@ -35,27 +33,18 @@ const languageTexts = {
     placeholder: '質問を入力してください... (例: 経歴、技術、プロジェクトなど)',
     send: '送信',
     sending: '送信中...',
-    error: '申し訳ございません。一時的なエラーが発生しました。しばらくしてから再度お試しください。',
-    languageToggle: '🇰🇷 한국어',
-    themeToggle: '🌙'
+    error: '申し訳ございません。一時的なエラーが発生しました。しばらくしてから再度お試しください。'
   }
 }
 
 interface ChatbotWidgetProps {
   apiUrl: string;
-  initialLang: string;
-  initialTheme: string;
 }
 
-export default function ChatbotWidget({ apiUrl, initialLang, initialTheme }: ChatbotWidgetProps) {
+export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
   // 언어 감지 함수
   const getLanguage = () => {
-    // 1. props에서 전달받은 언어 우선
-    if (initialLang === 'ja' || initialLang === 'ko') {
-      return initialLang;
-    }
-    
-    // 2. 쿼리 파라미터 (블로그 삽입용)
+    // 1. 쿼리 파라미터 (블로그 삽입용)
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const queryLang = urlParams.get('lang');
@@ -63,89 +52,71 @@ export default function ChatbotWidget({ apiUrl, initialLang, initialTheme }: Cha
         return queryLang;
       }
       
-      // 3. URL 경로 감지 (독립 운용용)
+      // 2. URL 경로 감지 (독립 운용용)
       const path = window.location.pathname;
       if (path.includes('/ja')) return 'ja';
       if (path.includes('/ko')) return 'ko';
     }
     
-    // 4. 기본값
+    // 3. 기본값
     return 'ja';
   };
 
-  // 테마 감지 함수
-  const getTheme = () => {
-    // 1. props에서 전달받은 테마 우선
-    if (initialTheme === 'dark' || initialTheme === 'light') {
-      return initialTheme;
-    }
-    
-    // 2. 쿼리 파라미터 (블로그 삽입용)
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const theme = urlParams.get('theme');
-      return theme === 'dark' ? 'dark' : 'light';
-    }
-    
-    // 3. 기본값
-    return 'light';
-  };
-
   const [currentLang, setCurrentLang] = useState<'ko' | 'ja'>('ja');
-  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
   const [chatMessages, setChatMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  // 언어와 테마 초기화
+  // 언어 초기화
   useEffect(() => {
     const detectedLang = getLanguage();
-    const detectedTheme = getTheme();
     setCurrentLang(detectedLang);
-    setCurrentTheme(detectedTheme);
     
-    // 테마 적용
-    document.documentElement.classList.toggle('dark', detectedTheme === 'dark');
+    // 환영 메시지도 여기서 생성 (언어 설정 후)
+    const welcomeMessage: Message = {
+      id: 'welcome',
+      content: languageTexts[detectedLang].welcome,
+      role: 'assistant',
+      timestamp: new Date()
+    }
+    setChatMessages([welcomeMessage])
   }, []);
 
-  // 언어 변경 함수
-  const toggleLanguage = () => {
-    const newLang = currentLang === 'ko' ? 'ja' : 'ko';
-    setCurrentLang(newLang);
-    
-    // URL 업데이트 (쿼리 파라미터)
-    const url = new URL(window.location.href);
-    url.searchParams.set('lang', newLang);
-    window.history.pushState({}, '', url.toString());
-  };
-
-  // 테마 변경 함수
-  const toggleTheme = () => {
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    setCurrentTheme(newTheme);
-    
-    // 테마 적용
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
-    
-    // URL 업데이트 (쿼리 파라미터)
-    const url = new URL(window.location.href);
-    url.searchParams.set('theme', newTheme);
-    window.history.pushState({}, '', url.toString());
-  };
-
-  // 환영 메시지 표시
+  // 테마는 URL 파라미터로만 제어됩니다
   useEffect(() => {
-    if (chatMessages.length === 0) {
-      const welcomeMessage: Message = {
-        id: 'welcome',
-        content: languageTexts[currentLang].welcome,
-        role: 'assistant',
-        timestamp: new Date()
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const theme = urlParams.get('theme');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
       }
-      setChatMessages([welcomeMessage])
     }
-  }, [chatMessages.length, currentLang])
+  }, []);
+
+  // 언어 변경 시 환영 메시지 업데이트 (URL 파라미터 변경 감지)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryLang = urlParams.get('lang');
+      if (queryLang === 'ja' || queryLang === 'ko') {
+        setCurrentLang(queryLang);
+        
+        // 환영 메시지도 업데이트
+        if (chatMessages.length > 0 && chatMessages[0]?.id === 'welcome') {
+          const updatedWelcomeMessage: Message = {
+            id: 'welcome',
+            content: languageTexts[queryLang].welcome,
+            role: 'assistant',
+            timestamp: new Date()
+          }
+          setChatMessages(prev => [updatedWelcomeMessage, ...prev.slice(1)])
+        }
+      }
+    }
+  }, [chatMessages.length])
 
   // 스크롤을 맨 아래로 이동
   const scrollToBottom = () => {
