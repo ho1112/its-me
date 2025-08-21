@@ -34,9 +34,19 @@ const vectorStore = new SupabaseVectorStore(embeddings, {
   queryName: "match_documents",
 })
 
+const today = new Date();
+const todayString = new Intl.DateTimeFormat('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  weekday: 'long',
+  timeZone: 'Asia/Tokyo',
+}).format(today);
+
 // 프롬프트 템플릿 정의
 const promptTemplate = ChatPromptTemplate.fromTemplate(`
 당신은 이호연이라는 프론트엔드 개발자의 AI 포트폴리오 어시스턴트입니다.
+현재 날짜는 ${todayString} 입니다. 이 날짜를 기준으로 나이 계산 등의 요청에 답변해주세요.
 
 다음은 사용자 질문과 관련된 정보입니다:
 {context}
