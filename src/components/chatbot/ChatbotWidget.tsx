@@ -203,8 +203,8 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
               </p>
             </div>
             <div className="text-blue-100 hover:text-white transition-colors">
-              <img 
-                src="/images/click.svg"
+              <img
+                src="https://its-me-vert.vercel.app/images/ui/click.svg"
                 alt={isMinimized ? 'Expand' : 'Minimize'}
                 className={`w-10 h-10 group-hover:brightness-0 group-hover:invert group-hover:animate-bounce ${
                   isMinimized ? 'animate-slow-ping' : ''
