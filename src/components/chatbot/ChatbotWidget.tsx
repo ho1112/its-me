@@ -186,7 +186,7 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
 
   return (
     <div className="w-full h-auto flex items-center justify-center p-4">
-      <Card className={`w-full max-w-4xl shadow-2xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 flex flex-col transition-all duration-300 ${
+      <Card className={`w-full max-w-2xl shadow-2xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 flex flex-col transition-all duration-300 ${
         isMinimized ? 'h-auto min-h-[80px]' : 'h-auto min-h-[600px]'
       }`}>
         <CardHeader 
