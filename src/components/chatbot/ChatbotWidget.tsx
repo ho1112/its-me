@@ -190,15 +190,15 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
         isMinimized ? 'h-auto min-h-[80px]' : 'h-auto min-h-[600px]'
       }`}>
         <CardHeader 
-          className="group bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-gray-700 dark:to-gray-600 text-white p-6 rounded-t-lg flex-shrink-0 cursor-pointer hover:from-blue-700 hover:to-indigo-700 transition-all duration-200"
+          className="group bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-gray-700 dark:to-gray-600 text-white p-4 rounded-t-lg flex-shrink-0 cursor-pointer hover:from-blue-700 hover:to-indigo-700 transition-all duration-200"
           onClick={toggleMinimize}
         >
           <div className="flex items-center justify-between">
             <div className="flex-1 text-center">
-              <CardTitle className="text-2xl font-bold">
+              <CardTitle className="text-xl font-bold">
                 {languageTexts[currentLang].title}
               </CardTitle>
-              <p className="text-blue-100 dark:text-gray-300 text-center mt-2">
+              <p className="text-blue-100 dark:text-gray-300 text-center mt-1 text-sm">
                 {languageTexts[currentLang].subtitle}
               </p>
             </div>
