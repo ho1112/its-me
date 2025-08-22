@@ -63,6 +63,7 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
   };
 
   const [currentLang, setCurrentLang] = useState<'ko' | 'ja'>('ja');
+  const [isMinimized, setIsMinimized] = useState(true);
   const [chatMessages, setChatMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -117,6 +118,11 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
       }
     }
   }, [chatMessages.length])
+
+  // 최소화/확장 토글 함수
+  const toggleMinimize = () => {
+    setIsMinimized(!isMinimized);
+  };
 
   // 스크롤을 맨 아래로 이동
   const scrollToBottom = () => {
@@ -180,64 +186,84 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
 
   return (
     <div className="w-full h-auto flex items-center justify-center p-4">
-      <Card className="w-full max-w-4xl h-auto min-h-[600px] shadow-2xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 flex flex-col">
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-gray-700 dark:to-gray-600 text-white p-6 rounded-t-lg flex-shrink-0">
-          <CardTitle className="text-2xl font-bold text-center">
-            {languageTexts[currentLang].title}
-          </CardTitle>
-          <p className="text-blue-100 dark:text-gray-300 text-center mt-2">
-            {languageTexts[currentLang].subtitle}
-          </p>
+      <Card className={`w-full max-w-4xl shadow-2xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 flex flex-col transition-all duration-300 ${
+        isMinimized ? 'h-auto min-h-[80px]' : 'h-auto min-h-[600px]'
+      }`}>
+        <CardHeader 
+          className="group bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-gray-700 dark:to-gray-600 text-white p-6 rounded-t-lg flex-shrink-0 cursor-pointer hover:from-blue-700 hover:to-indigo-700 transition-all duration-200"
+          onClick={toggleMinimize}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex-1 text-center">
+              <CardTitle className="text-2xl font-bold">
+                {languageTexts[currentLang].title}
+              </CardTitle>
+              <p className="text-blue-100 dark:text-gray-300 text-center mt-2">
+                {languageTexts[currentLang].subtitle}
+              </p>
+            </div>
+            <div className="text-blue-100 hover:text-white transition-colors">
+              <img 
+                src="/images/click.svg"
+                alt={isMinimized ? 'Expand' : 'Minimize'}
+                className={`w-10 h-10 group-hover:brightness-0 group-hover:invert group-hover:animate-bounce ${
+                  isMinimized ? 'animate-slow-ping' : ''
+                }`}
+              />
+            </div>
+          </div>
         </CardHeader>
         
-        <CardContent className="p-0 flex flex-col flex-1 overflow-hidden">
-          {/* 메시지 영역 */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4 min-h-0">
-            {chatMessages.map((message) => (
-              <ChatImage
-                key={message.id}
-                message={message.content}
-                isUser={message.role === 'user'}
-                imagePaths={message.imagePaths}
-                timestamp={message.timestamp.toISOString()}
-              />
-            ))}
-            
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-gray-50 dark:bg-gray-700 rounded-2xl px-4 py-3 border border-gray-200 dark:border-gray-600">
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+        {!isMinimized && (
+          <CardContent className="p-0 flex flex-col flex-1 overflow-hidden">
+            {/* 메시지 영역 */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-4 min-h-0">
+              {chatMessages.map((message) => (
+                <ChatImage
+                  key={message.id}
+                  message={message.content}
+                  isUser={message.role === 'user'}
+                  imagePaths={message.imagePaths}
+                  timestamp={message.timestamp.toISOString()}
+                />
+              ))}
+              
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-50 dark:bg-gray-700 rounded-2xl px-4 py-3 border border-gray-200 dark:border-gray-600">
+                    <div className="flex space-x-2">
+                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-            
-            <div ref={messagesEndRef} />
-          </div>
+              )}
+              
+              <div ref={messagesEndRef} />
+            </div>
 
-          {/* 입력 폼 */}
-          <div className="p-6 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-b-lg flex-shrink-0">
-            <form onSubmit={handleSubmit} className="flex space-x-3">
-              <Input
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder={languageTexts[currentLang].placeholder}
-                disabled={isLoading}
-                className="flex-1 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-xl px-4 py-3 text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-              />
-              <Button 
-                type="submit" 
-                disabled={isLoading || !inputValue.trim()}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
-              >
-                {isLoading ? languageTexts[currentLang].sending : languageTexts[currentLang].send}
-              </Button>
-            </form>
-          </div>
-        </CardContent>
+            {/* 입력 폼 */}
+            <div className="p-6 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-b-lg flex-shrink-0">
+              <form onSubmit={handleSubmit} className="flex space-x-3">
+                <Input
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  placeholder={languageTexts[currentLang].placeholder}
+                  disabled={isLoading}
+                  className="flex-1 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-xl px-4 py-3 text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                />
+                <Button 
+                  type="submit" 
+                  disabled={isLoading || !inputValue.trim()}
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
+                >
+                  {isLoading ? languageTexts[currentLang].sending : languageTexts[currentLang].send}
+                </Button>
+              </form>
+            </div>
+          </CardContent>
+        )}
       </Card>
     </div>
   )
