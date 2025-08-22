@@ -203,6 +203,15 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
           onClick={toggleMinimize}
         >
           <div className="flex items-center justify-between">
+            {/* 왼쪽 로고 */}
+            <div className="flex-shrink-0">
+              <img
+                src="https://its-me-vert.vercel.app/images/ui/logo_white.svg"
+                alt="Logo"
+                className="w-12 h-12"
+              />
+            </div>
+            {/* 중앙 제목/부제목 */}
             <div className="flex-1 text-center">
               <CardTitle className="text-xl font-bold">
                 {languageTexts[currentLang].title}
@@ -211,7 +220,8 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
                 {languageTexts[currentLang].subtitle}
               </p>
             </div>
-            <div className="text-white hover:text-gray-200 transition-colors">
+            {/* 오른쪽 클릭 아이콘 */}
+            <div className="flex-shrink-0 text-white hover:text-gray-200 transition-colors">
               <img
                 src="https://its-me-vert.vercel.app/images/ui/click.svg"
                 alt={isMinimized ? 'Expand' : 'Minimize'}
