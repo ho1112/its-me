@@ -190,7 +190,7 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
         isMinimized ? 'h-auto min-h-[80px]' : 'h-auto min-h-[600px]'
       }`}>
         <CardHeader 
-          className="group bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-gray-700 dark:to-gray-600 text-white p-4 rounded-t-lg flex-shrink-0 cursor-pointer hover:from-blue-700 hover:to-indigo-700 transition-all duration-200"
+          className="group bg-chomin dark:bg-chomin-dark text-white p-4 rounded-t-lg flex-shrink-0 cursor-pointer hover:bg-chomin-dark dark:hover:bg-chomin transition-all duration-200"
           onClick={toggleMinimize}
         >
           <div className="flex items-center justify-between">
@@ -198,15 +198,15 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
               <CardTitle className="text-xl font-bold">
                 {languageTexts[currentLang].title}
               </CardTitle>
-              <p className="text-blue-100 dark:text-gray-300 text-center mt-1 text-sm">
+              <p className="text-white text-center mt-1 text-sm">
                 {languageTexts[currentLang].subtitle}
               </p>
             </div>
-            <div className="text-blue-100 hover:text-white transition-colors">
+            <div className="text-white hover:text-gray-200 transition-colors">
               <img
                 src="https://its-me-vert.vercel.app/images/ui/click.svg"
                 alt={isMinimized ? 'Expand' : 'Minimize'}
-                className={`w-10 h-10 group-hover:brightness-0 group-hover:invert group-hover:animate-bounce ${
+                className={`w-10 h-10 brightness-0 invert group-hover:brightness-0 group-hover:invert group-hover:animate-bounce ${
                   isMinimized ? 'animate-slow-ping' : ''
                 }`}
               />
@@ -231,11 +231,11 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="bg-gray-50 dark:bg-gray-700 rounded-2xl px-4 py-3 border border-gray-200 dark:border-gray-600">
-                    <div className="flex space-x-2">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                    </div>
+                                      <div className="flex space-x-2">
+                    <div className="w-2 h-2 bg-chomin rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-chomin rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-chomin rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  </div>
                   </div>
                 </div>
               )}
@@ -251,12 +251,12 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder={languageTexts[currentLang].placeholder}
                   disabled={isLoading}
-                  className="flex-1 border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-xl px-4 py-3 text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                  className="flex-1 border-2 border-gray-200 dark:border-gray-600 focus:border-chomin focus:ring-2 focus:ring-chomin-light rounded-xl px-4 py-3 text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                 />
                 <Button 
                   type="submit" 
                   disabled={isLoading || !inputValue.trim()}
-                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="bg-chomin hover:bg-chomin-dark px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   {isLoading ? languageTexts[currentLang].sending : languageTexts[currentLang].send}
                 </Button>

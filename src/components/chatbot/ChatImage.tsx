@@ -21,7 +21,7 @@ export const ChatImage: React.FC<ChatImageProps> = ({
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
       <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
         isUser 
-          ? 'bg-blue-500 text-white' 
+          ? 'bg-chomin text-white' 
           : 'bg-gray-200 text-gray-800'
       }`}>
         <div className="text-sm">{message}</div>
@@ -47,7 +47,7 @@ export const ChatImage: React.FC<ChatImageProps> = ({
         {/* 타임스탬프 */}
         {timestamp && (
           <div className={`text-xs mt-2 ${
-            isUser ? 'text-blue-100' : 'text-gray-500'
+            isUser ? 'text-white' : 'text-gray-500'
           }`}>
             {new Date(timestamp).toLocaleTimeString()}
           </div>

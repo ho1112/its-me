@@ -53,6 +53,12 @@ module.exports = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			},
+  			// chomin 민트
+  			chomin: {
+  				DEFAULT: '#31ced2',
+  				light: '#72cfd2',
+  				dark: '#329a9d'
   			}
   		}
   	}
