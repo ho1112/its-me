@@ -67,7 +67,7 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
   const [chatMessages, setChatMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+
 
   // 언어 초기화
   useEffect(() => {
@@ -124,14 +124,7 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
     setIsMinimized(!isMinimized);
   };
 
-  // 스크롤을 맨 아래로 이동
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
 
-  useEffect(() => {
-    scrollToBottom()
-  }, [chatMessages])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -187,7 +180,7 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
   return (
     <div className="w-full h-auto flex items-center justify-center p-4">
       <Card className={`w-full max-w-4xl shadow-2xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 flex flex-col transition-all duration-300 not-prose ${
-        isMinimized ? 'h-auto min-h-[80px]' : 'h-auto min-h-[600px]'
+        isMinimized ? 'h-auto min-h-[80px]' : 'h-[600px]'
       }`}>
         <CardHeader 
           className="group bg-chomin dark:bg-chomin-dark text-white p-4 rounded-t-lg flex-shrink-0 cursor-pointer hover:bg-chomin-dark dark:hover:bg-chomin transition-all duration-200"
@@ -240,7 +233,7 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
                 </div>
               )}
               
-              <div ref={messagesEndRef} />
+
             </div>
 
             {/* 입력 폼 */}
