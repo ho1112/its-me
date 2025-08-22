@@ -67,6 +67,8 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
   const [chatMessages, setChatMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [shouldAutoScroll, setShouldAutoScroll] = useState(true)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
 
 
   // 언어 초기화
@@ -123,6 +125,20 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
   const toggleMinimize = () => {
     setIsMinimized(!isMinimized);
   };
+
+  // 스크롤 위치 감지 및 자동 스크롤
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10 // 10px 여유
+    setShouldAutoScroll(isAtBottom)
+  }
+
+  // 조건부 자동 스크롤
+  useEffect(() => {
+    if (shouldAutoScroll && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [chatMessages, shouldAutoScroll])
 
 
 
@@ -210,7 +226,10 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
         {!isMinimized && (
           <CardContent className="p-0 flex flex-col flex-1 overflow-hidden">
             {/* 메시지 영역 */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 min-h-0">
+            <div 
+              className="flex-1 overflow-y-auto p-6 space-y-4 min-h-0"
+              onScroll={handleScroll}
+            >
               {chatMessages.map((message) => (
                 <ChatImage
                   key={message.id}
@@ -231,9 +250,9 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
                   </div>
                   </div>
                 </div>
-              )}
+                            )}
               
-
+              <div ref={messagesEndRef} />
             </div>
 
             {/* 입력 폼 */}
