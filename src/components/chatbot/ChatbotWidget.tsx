@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import ReactDOM from 'react-dom/client';
 import { Button } from '@/components/ui/button'
+import { NO_ANSWER_KEYWORD, RECOMMENDATION_TOPICS } from '@/utils/constants'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ChatImage } from './ChatImage'
@@ -13,6 +14,8 @@ interface Message {
   role: 'user' | 'assistant'
   timestamp: Date
   imagePaths?: string[] | null
+  suggestions?: string[]
+  topic?: string
 }
 
 // 다국어 텍스트 정의
@@ -69,6 +72,7 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [shownTopics, setShownTopics] = useState<Set<string>>(new Set())
 
 
   // 언어 초기화
@@ -81,7 +85,11 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
       id: 'welcome',
       content: languageTexts[detectedLang].welcome,
       role: 'assistant',
-      timestamp: new Date()
+      timestamp: new Date(),
+                suggestions: detectedLang === 'ko'
+            ? ['주요 기술 스택은 뭐야?', '가장 자신 있는 프로젝트는?', '성격의 장점과 단점 알려줘']
+            : ['主な技術スタックは何ですか？', '一番自信のあるプロジェクトは何ですか？', '性格の長所と短所を教えてください'],
+          topic: RECOMMENDATION_TOPICS.INITIAL
     }
     setChatMessages([welcomeMessage])
   }, []);
@@ -99,6 +107,100 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
     }
   }, []);
 
+  // 추천질문 버튼 렌더링 함수
+  const renderSuggestions = (suggestions: string[], topic: string, messageId: string) => {
+    // 이미 표시된 주제라면 렌더링하지 않음
+    if (shownTopics.has(topic)) {
+      return null;
+    }
+
+    return (
+      <div className="mt-4 space-y-2">
+        <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
+          💡 {currentLang === 'ko' ? '추천 질문' : 'おすすめの質問'}
+        </p>
+        <div className="flex flex-wrap gap-2 justify-center">
+          {suggestions.map((suggestion, index) => (
+            <Button
+              key={index}
+              variant="outline"
+              size="sm"
+              className="text-xs px-3 py-1 h-auto bg-white dark:bg-gray-700 hover:bg-chomin hover:text-white dark:hover:bg-chomin-dark dark:hover:text-white border-chomin text-chomin dark:text-chomin-light hover:border-chomin-dark dark:hover:border-chomin-dark transition-all duration-200"
+              onClick={async () => {
+                // fallback이 아닌 경우에만 주제를 표시된 것으로 기록
+                if (topic !== RECOMMENDATION_TOPICS.FALLBACK) {
+                  setShownTopics(prev => new Set(Array.from(prev).concat(topic)));
+                }
+                
+                // 해당 메시지의 추천질문을 즉시 제거하기 위해 메시지 업데이트
+                setChatMessages(prev => prev.map(msg => 
+                  msg.id === messageId 
+                    ? { ...msg, suggestions: undefined, topic: undefined }
+                    : msg
+                ));
+                
+                // 사용자 메시지를 채팅창에 먼저 추가
+                const userMessage: Message = {
+                  id: Date.now().toString(),
+                  content: suggestion,
+                  role: 'user',
+                  timestamp: new Date()
+                }
+                setChatMessages(prev => [...prev, userMessage])
+                
+                // 추천질문을 자동으로 전송
+                setInputValue(suggestion);
+                setIsLoading(true);
+                
+                try {
+                  const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'x-chat-history': 'true', // 첫 메시지가 아님을 표시
+                    },
+                    body: JSON.stringify({ message: suggestion, language: currentLang }),
+                  })
+
+                  if (response.ok) {
+                    const data = await response.json()
+                    // NO_ANSWER 키워드 제거
+                    const cleanResponse = data.response.replace(NO_ANSWER_KEYWORD, '').trim();
+                    const assistantMessage: Message = {
+                      id: (Date.now() + 1).toString(),
+                      content: cleanResponse,
+                      role: 'assistant',
+                      timestamp: new Date(),
+                      imagePaths: data.imagePaths || null,
+                      suggestions: data.suggestions || null,
+                      topic: data.topic || null
+                    }
+                    setChatMessages(prev => [...prev, assistantMessage])
+                  } else {
+                    throw new Error('API 호출 실패')
+                  }
+                } catch (error) {
+                  const errorMessage: Message = {
+                    id: (Date.now() + 1).toString(),
+                    content: languageTexts[currentLang].error,
+                    role: 'assistant',
+                    timestamp: new Date()
+                  }
+                  setChatMessages(prev => [...prev, errorMessage])
+                } finally {
+                  setIsLoading(false)
+                  setInputValue('') // 입력창 비우기
+                }
+              }}
+            >
+              {suggestion}
+            </Button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   // 언어 변경 시 환영 메시지 업데이트 (URL 파라미터 변경 감지)
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -113,7 +215,11 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
             id: 'welcome',
             content: languageTexts[queryLang].welcome,
             role: 'assistant',
-            timestamp: new Date()
+            timestamp: new Date(),
+            suggestions: queryLang === 'ko' 
+              ? ['주요 기술 스택은 뭐야?', '가장 자신 있는 프로젝트는?', '성격의 장점과 단점 알려줘']
+              : ['主な技術スタックは何ですか？', '一番自信のあるプロジェクトは何ですか？', '性格の長所と短所を教えてください'],
+            topic: 'initial'
           }
           setChatMessages(prev => [updatedWelcomeMessage, ...prev.slice(1)])
         }
@@ -163,18 +269,23 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-chat-history': 'true', // 첫 메시지가 아님을 표시
         },
         body: JSON.stringify({ message: inputValue, language: currentLang }),
       })
 
       if (response.ok) {
         const data = await response.json()
+        // NO_ANSWER 키워드 제거하고 깔끔하게 표시
+        const cleanResponse = data.response.replace('NO_ANSWER', '').trim();
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
-          content: data.response,
+          content: cleanResponse,
           role: 'assistant',
           timestamp: new Date(),
-          imagePaths: data.imagePaths || null
+          imagePaths: data.imagePaths || null,
+          suggestions: data.suggestions || null,
+          topic: data.topic || null
         }
         setChatMessages(prev => [...prev, assistantMessage])
       } else {
@@ -241,13 +352,18 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
               onScroll={handleScroll}
             >
               {chatMessages.map((message) => (
-                <ChatImage
-                  key={message.id}
-                  message={message.content}
-                  isUser={message.role === 'user'}
-                  imagePaths={message.imagePaths}
-                  timestamp={message.timestamp.toISOString()}
-                />
+                <div key={message.id}>
+                  <ChatImage
+                    message={message.content}
+                    isUser={message.role === 'user'}
+                    imagePaths={message.imagePaths}
+                    timestamp={message.timestamp.toISOString()}
+                  />
+                               {/* 추천질문 표시 */}
+             {message.role === 'assistant' && message.suggestions && message.topic &&
+               renderSuggestions(message.suggestions, message.topic, message.id)
+             }
+                </div>
               ))}
               
               {isLoading && (

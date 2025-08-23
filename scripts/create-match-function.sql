@@ -18,7 +18,8 @@ BEGIN
     itsme.question AS content,        -- 질문을 content로
     jsonb_build_object(
       'answer_ko', itsme.answer_ko,  -- 한국어 답변
-      'answer_ja', itsme.answer_ja   -- 일본어 답변
+      'answer_ja', itsme.answer_ja,  -- 일본어 답변
+      'tags', itsme.tags             -- 태그 필드 추가!
     ) AS metadata,
     1 - (itsme.embedding <=> query_embedding) AS similarity
   FROM

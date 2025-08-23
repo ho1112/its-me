@@ -10,56 +10,56 @@
     "question": "이름",
     "answer_ko": "이호연입니다.",
     "answer_ja": "イ・ホヨンです。",
-    "image_path": null,
+    "image_paths": [],
     "tags": ["개인정보"]
   },
   {
     "question": "직업",
     "answer_ko": "프론트엔드 개발자입니다.",
     "answer_ja": "フロントエンド開発者です。",
-    "image_path": null,
+    "image_paths": [],
     "tags": ["경력", "직업"]
   },
   {
     "question": "경력",
     "answer_ko": "5년간 프론트엔드 개발 경험이 있습니다.",
     "answer_ja": "5年間のフロントエンド開発経験があります。",
-    "image_path": null,
+    "image_paths": [],
     "tags": ["경력", "개인정보"]
   },
   {
     "question": "연락처",
     "answer_ko": "이메일: hohoyeon@gmail.com, GitHub: github.com/ho1112",
     "answer_ja": "メール: hohoyeon@gmail.com、GitHub: github.com/ho1112",
-    "image_path": null,
+    "image_paths": [],
     "tags": ["개인정보", "연락처"]
   },
   {
     "question": "생년월일",
     "answer_ko": "1990년 8월 22일입니다.",
     "answer_ja": "1990年8月22日です。",
-    "image_path": null,
+    "image_paths": [],
     "tags": ["개인정보"]
   },
   {
     "question": "주요기술",
     "answer_ko": "React, TypeScript, Next.js, Tailwind CSS를 주로 사용합니다.",
     "answer_ja": "React、TypeScript、Next.js、Tailwind CSSを主に使用しています。",
-    "image_path": null,
+    "image_paths": [],
     "tags": ["기술", "역량", "스택"]
   },
   {
     "question": "현업프로젝트",
     "answer_ko": "OOO 회사에서 3년간 B2B 웹 서비스를 개발했습니다.",
     "answer_ja": "OOO会社で3年間B2Bウェブサービスの開発に携わりました。",
-    "image_path": null,
+    "image_paths": [],
     "tags": ["프로젝트", "현업", "경력"]
   },
   {
     "question": "개인프로젝트",
     "answer_ko": "AI 기반 포트폴리오 챗봇 '잇츠미'를 개인적으로 개발했습니다.",
     "answer_ja": "AIベースのポートフォリオチャットボット「イッツミ」を個人的に開発しました。",
-    "image_path": null,
+    "image_paths": [],
     "tags": ["프로젝트", "개인", "AI"]
   }
 ]

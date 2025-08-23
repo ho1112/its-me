@@ -4,10 +4,11 @@ import { GoogleGenerativeAIEmbeddings } from '@langchain/google-genai'
 import { SupabaseVectorStore } from '@langchain/community/vectorstores/supabase'
 import { createClient } from '@supabase/supabase-js'
 import { StringOutputParser } from '@langchain/core/output_parsers'
-import { PromptTemplate } from '@langchain/core/prompts'
 import { RunnableSequence } from '@langchain/core/runnables'
 import { ChatPromptTemplate } from '@langchain/core/prompts'
 import { Document } from '@langchain/core/documents'
+import suggestionDecks from '@/data/suggestions.json'
+import { NO_ANSWER_KEYWORD, RECOMMENDATION_TOPICS } from '@/utils/constants'
 
 // Supabase 클라이언트 생성
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
@@ -43,6 +44,64 @@ const todayString = new Intl.DateTimeFormat('ja-JP', {
   timeZone: 'Asia/Tokyo',
 }).format(today);
 
+// 추천질문 생성 함수
+function generateSuggestions(
+  language: string, 
+  searchResults: Document[], 
+  isFirstMessage: boolean = false,
+  isSearchFailed: boolean = false
+) {
+  // 대화 시작 시
+  if (isFirstMessage) {
+    return {
+      suggestions: suggestionDecks.initial[language as keyof typeof suggestionDecks.initial] || suggestionDecks.initial.ko,
+      topic: RECOMMENDATION_TOPICS.INITIAL
+    };
+  }
+  
+  // 검색 실패 시
+  if (isSearchFailed) {
+    return {
+      suggestions: suggestionDecks.fallback[language as keyof typeof suggestionDecks.fallback] || suggestionDecks.fallback.ko,
+      topic: RECOMMENDATION_TOPICS.FALLBACK
+    };
+  }
+  
+  // 검색 성공 시 - 태그 기반으로 적절한 follow_up 덱 선택
+  if (searchResults.length > 0) {
+    // 모든 검색 결과의 태그를 수집
+    const allTags = searchResults.flatMap(doc => {
+      const metadata = doc.metadata as any;
+      return metadata.tags || [];
+    });
+    
+    // follow_up 덱 중에서 태그가 가장 많이 일치하는 것을 선택
+    let bestMatch = null;
+    let maxMatchCount = 0;
+    
+    for (const deck of suggestionDecks.follow_up) {
+      const matchCount = deck.tags.filter(tag => allTags.includes(tag)).length;
+      if (matchCount > maxMatchCount) {
+        maxMatchCount = matchCount;
+        bestMatch = deck;
+      }
+    }
+    
+    if (bestMatch && maxMatchCount > 0) {
+      return {
+        suggestions: bestMatch[language as keyof typeof bestMatch] || bestMatch.ko,
+        topic: bestMatch.tags.join(',') // 태그들을 쉼표로 구분하여 topic으로 사용
+      };
+    }
+  }
+  
+  // 기본값: 추천질문 없음
+  return {
+    suggestions: [],
+    topic: null
+  };
+}
+
 // 언어별 프롬프트 템플릿 정의
 const promptTemplateKo = ChatPromptTemplate.fromTemplate(`
 당신은 이호연이라는 프론트엔드 개발자의 AI 포트폴리오 어시스턴트입니다.
@@ -54,7 +113,7 @@ const promptTemplateKo = ChatPromptTemplate.fromTemplate(`
 사용자 질문: {question}
 
 위의 정보를 바탕으로 지능적으로 답변해주세요. 관련 정보가 있다면 그것을 활용해서 답변해주세요.
-만약 위 정보로 답변할 수 없다면, "죄송합니다. 해당 정보를 찾을 수 없습니다."라고 답변해주세요.
+만약 위 정보로 답변할 수 없다면, 반드시 '${NO_ANSWER_KEYWORD}'를 포함해서 답변해주세요.
 
 답변은 자연스럽고 친근한 톤으로 작성해주세요.
 
@@ -71,7 +130,7 @@ const promptTemplateJa = ChatPromptTemplate.fromTemplate(`
 ユーザーのご質問：{question}
 
 上記の情報を基に、知的にお答えください。関連情報がある場合は、それを活用してお答えください。
-上記の情報でお答えできない場合は、「申し訳ございません。該当する情報が見つかりません。」とお答えください。
+上記の情報でお答えできない場合は、必ず'${NO_ANSWER_KEYWORD}'を含めてお答えください。
 
 お答えは自然で親しみやすいトーンで作成してください。
 
@@ -86,10 +145,14 @@ function createRagChain(language: string) {
     {
       context: async (input: { question: string }) => {
         try {
-          // 벡터 검색으로 관련 문서 찾기
-          console.log(`🔍 LangChain 벡터 검색 시작: "${input.question}"`)
-          const results = await vectorStore.similaritySearch(input.question, 3)
-          console.log(`✅ 검색 결과: ${results.length}개`)
+            // 벡터 검색으로 관련 문서 찾기 (유사도 임계값 0.5 적용)
+  console.log(`🔍 LangChain 벡터 검색 시작: "${input.question}"`)
+  const resultsWithScore = await vectorStore.similaritySearchWithScore(input.question, 10)
+  const results = resultsWithScore
+    .filter(([doc, score]) => score > 0.5)
+    .slice(0, 3)
+    .map(([doc]) => doc)
+  console.log(`✅ 검색 결과: ${results.length}개 (임계값 0.5 이상)`)
           
           // 디버깅: 각 문서의 내용 확인
           results.forEach((doc: Document, index: number) => {
@@ -204,6 +267,19 @@ export async function POST(request: NextRequest) {
 
     console.log(`✅ LangChain 응답 생성 완료:`, response.substring(0, 100) + '...')
 
+    // 벡터 검색 결과를 다시 가져와서 추천질문 생성에 사용 (임계값 0.7 적용)
+    const searchResultsWithScore = await vectorStore.similaritySearchWithScore(message, 10);
+    const searchResults = searchResultsWithScore
+      .filter(([doc, score]) => score > 0.5)
+      .slice(0, 3)
+      .map(([doc]) => doc);
+    
+    // 추천질문 생성
+    const isFirstMessage = !request.headers.get('x-chat-history'); // 간단한 첫 메시지 체크
+    const isSearchFailed = searchResults.length === 0 || response.includes(NO_ANSWER_KEYWORD);
+    
+    const suggestions = generateSuggestions(language, searchResults, isFirstMessage, isSearchFailed);
+
     // 이미지 정보 추출 - ragChain과 동일한 검색을 다시 실행하여 이미지 경로들 가져오기
     const { data: imageResults } = await supabase
       .from('itsme')
@@ -212,12 +288,14 @@ export async function POST(request: NextRequest) {
       .limit(1)
     
     const imagePaths = imageResults?.[0]?.image_paths || []
-    console.log(`🖼️ 이미지 경로들: ${imagePaths}`)
+
     
     return NextResponse.json({
       response,
       language,
       imagePaths,  // 이미지 경로들 추가
+      suggestions: suggestions.suggestions, // 추천질문 추가
+      topic: suggestions.topic, // 주제 추가
       timestamp: new Date().toISOString(),
     }, {
       headers: {
