@@ -49,7 +49,7 @@ interface ChatbotProps {
 export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'light' }: ChatbotProps) {
   // 언어는 props로만 제어됩니다 (URL 파라미터 직접 읽지 않음)
 
-  const [currentLang, setCurrentLang] = useState<'ko' | 'ja'>('ja');
+  const [currentLang, setCurrentLang] = useState<'ko' | 'ja'>(initialLang);
   const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>(initialTheme);
   const [isMinimized, setIsMinimized] = useState(true);
   const [chatMessages, setChatMessages] = useState<Message[]>([])
