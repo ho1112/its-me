@@ -15,7 +15,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/widget.tsx'),
+      entry: resolve(__dirname, 'src/widget/widget.tsx'),
       name: 'ItsMeChatbot',
       fileName: 'widget',
       formats: ['iife']

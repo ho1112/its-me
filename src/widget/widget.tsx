@@ -1,6 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import ChatbotWidget from '@/components/chatbot/ChatbotWidget'
+import Chatbot from '@/components/chatbot/Chatbot'
 
 // Vite의 ?inline 기능을 사용해, 빌드된 CSS의 내용을 문자열로 가져옵니다
 // @ts-ignore - Vite의 ?inline 기능을 위한 타입 무시
@@ -31,18 +31,11 @@ function initWidget() {
   const scriptElement = document.currentScript as HTMLScriptElement;
   const apiUrl = scriptElement?.getAttribute('data-api-url') || 'https://its-me-vert.vercel.app/api/chat';
 
-  // Shadow DOM 내부에 테마 클래스 적용
-  if (theme === 'dark') {
-    appRoot.classList.add('dark');
-  } else {
-    appRoot.classList.remove('dark');
-  }
-
   // React 앱을 Shadow DOM 안에 렌더링
   const root = createRoot(appRoot);
   root.render(
     <React.StrictMode>
-      <ChatbotWidget apiUrl={apiUrl} initialLang={lang} initialTheme={theme} />
+      <Chatbot apiUrl={apiUrl} initialLang={lang} initialTheme={theme} />
     </React.StrictMode>
   );
 }

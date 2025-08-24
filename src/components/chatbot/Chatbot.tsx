@@ -40,34 +40,17 @@ const languageTexts = {
   }
 }
 
-interface ChatbotWidgetProps {
+interface ChatbotProps {
   apiUrl: string;
   initialLang?: 'ko' | 'ja';
   initialTheme?: 'light' | 'dark';
 }
 
-export default function ChatbotWidget({ apiUrl, initialLang = 'ja', initialTheme = 'light' }: ChatbotWidgetProps) {
-  // 언어 감지 함수
-  const getLanguage = () => {
-    // 1. 쿼리 파라미터 (블로그 삽입용)
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const queryLang = urlParams.get('lang');
-      if (queryLang === 'ja' || queryLang === 'ko') {
-        return queryLang;
-      }
-      
-      // 2. URL 경로 감지 (독립 운용용)
-      const path = window.location.pathname;
-      if (path.includes('/ja')) return 'ja';
-      if (path.includes('/ko')) return 'ko';
-    }
-    
-    // 3. props에서 받은 기본값 사용
-    return initialLang;
-  };
+export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'light' }: ChatbotProps) {
+  // 언어는 props로만 제어됩니다 (URL 파라미터 직접 읽지 않음)
 
   const [currentLang, setCurrentLang] = useState<'ko' | 'ja'>('ja');
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>(initialTheme);
   const [isMinimized, setIsMinimized] = useState(true);
   const [chatMessages, setChatMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
@@ -79,35 +62,26 @@ export default function ChatbotWidget({ apiUrl, initialLang = 'ja', initialTheme
 
   // 언어 초기화
   useEffect(() => {
-    const detectedLang = getLanguage();
-    setCurrentLang(detectedLang);
+    setCurrentLang(initialLang);
     
     // 환영 메시지도 여기서 생성 (언어 설정 후)
     const welcomeMessage: Message = {
       id: 'welcome',
-      content: languageTexts[detectedLang].welcome,
+      content: languageTexts[initialLang].welcome,
       role: 'assistant',
       timestamp: new Date(),
-                suggestions: detectedLang === 'ko'
+                suggestions: initialLang === 'ko'
             ? ['주요 기술 스택은 뭐야?', '가장 자신 있는 프로젝트는?', '성격의 장점과 단점 알려줘']
-            : ['主な技術スタックは何ですか？', '一番自信のあるプロジェクトは何ですか？', '性格の長所と短所を教えてください'],
+            : ['主な技術スタックは何ですか？', '一番自信のあるプロ젝트は何ですか？', '性格の長所と短所を教えてください'],
           topic: RECOMMENDATION_TOPICS.INITIAL
     }
     setChatMessages([welcomeMessage])
-  }, []);
+  }, [initialLang]);
 
-  // 테마는 URL 파라미터로만 제어됩니다
+  // 테마 초기화 및 변경 감지
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const theme = urlParams.get('theme');
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }
-  }, []);
+    setCurrentTheme(initialTheme);
+  }, [initialTheme]);
 
   // 추천질문 버튼 렌더링 함수
   const renderSuggestions = (suggestions: string[], topic: string, messageId: string) => {
@@ -118,7 +92,7 @@ export default function ChatbotWidget({ apiUrl, initialLang = 'ja', initialTheme
 
     return (
       <div className="mt-4 space-y-2">
-        <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
+        <p className={`text-sm ${currentTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'} text-center`}>
           💡 {currentLang === 'ko' ? '추천 질문' : 'おすすめの質問'}
         </p>
         <div className="flex flex-wrap gap-2 justify-center">
@@ -127,7 +101,7 @@ export default function ChatbotWidget({ apiUrl, initialLang = 'ja', initialTheme
               key={index}
               variant="outline"
               size="sm"
-              className="text-xs px-3 py-1 h-auto bg-white dark:bg-gray-700 hover:bg-chomin hover:text-white dark:hover:bg-chomin-dark dark:hover:text-white border-chomin text-chomin dark:text-chomin-light hover:border-chomin-dark dark:hover:border-chomin-dark transition-all duration-200"
+              className={`text-xs px-3 py-1 h-auto ${currentTheme === 'dark' ? 'bg-gray-700 hover:bg-chomin-dark hover:text-white text-chomin-light' : 'bg-white hover:bg-chomin hover:text-white text-chomin'} border-chomin hover:border-chomin-dark transition-all duration-200`}
               onClick={async () => {
                 // fallback이 아닌 경우에만 주제를 표시된 것으로 기록
                 if (topic !== RECOMMENDATION_TOPICS.FALLBACK) {
@@ -203,31 +177,25 @@ export default function ChatbotWidget({ apiUrl, initialLang = 'ja', initialTheme
     );
   };
 
-  // 언어 변경 시 환영 메시지 업데이트 (URL 파라미터 변경 감지)
+  // 언어 변경 시 환영 메시지 업데이트 (props 변경 감지)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const queryLang = urlParams.get('lang');
-      if (queryLang === 'ja' || queryLang === 'ko') {
-        setCurrentLang(queryLang);
-        
-        // 환영 메시지도 업데이트
-        if (chatMessages.length > 0 && chatMessages[0]?.id === 'welcome') {
-          const updatedWelcomeMessage: Message = {
-            id: 'welcome',
-            content: languageTexts[queryLang].welcome,
-            role: 'assistant',
-            timestamp: new Date(),
-            suggestions: queryLang === 'ko' 
-              ? ['주요 기술 스택은 뭐야?', '가장 자신 있는 프로젝트는?', '성격의 장점과 단점 알려줘']
-              : ['主な技術スタックは何ですか？', '一番自信のあるプロジェクトは何ですか？', '性格の長所と短所を教えてください'],
-            topic: 'initial'
-          }
-          setChatMessages(prev => [updatedWelcomeMessage, ...prev.slice(1)])
-        }
+    setCurrentLang(initialLang);
+    
+    // 환영 메시지도 업데이트
+    if (chatMessages.length > 0 && chatMessages[0]?.id === 'welcome') {
+      const updatedWelcomeMessage: Message = {
+        id: 'welcome',
+        content: languageTexts[initialLang].welcome,
+        role: 'assistant',
+        timestamp: new Date(),
+        suggestions: initialLang === 'ko' 
+          ? ['주요 기술 스택은 뭐야?', '가장 자신 있는 프로젝트는?', '성격의 장점과 단점 알려줘']
+          : ['主な技術スタックは何ですか？', '一番自信のあるプロジェクトは何ですか？', '性格の長所と短所を教えてください'],
+        topic: 'initial'
       }
+      setChatMessages(prev => [updatedWelcomeMessage, ...prev.slice(1)])
     }
-  }, [chatMessages.length])
+  }, [initialLang, chatMessages.length])
 
   // 최소화/확장 토글 함수
   const toggleMinimize = () => {
@@ -308,11 +276,11 @@ export default function ChatbotWidget({ apiUrl, initialLang = 'ja', initialTheme
 
   return (
     <div className="w-full h-auto flex items-center justify-center p-4">
-      <Card className={`w-full max-w-4xl shadow-2xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 flex flex-col transition-all duration-300 not-prose ${
+      <Card className={`w-full max-w-4xl shadow-2xl border border-gray-200 ${currentTheme === 'dark' ? 'border-gray-600 bg-gray-800' : 'border-gray-200 bg-white'} flex flex-col transition-all duration-300 not-prose ${
         isMinimized ? 'h-auto min-h-[80px]' : 'h-[600px]'
       }`}>
         <CardHeader 
-          className="group bg-chomin dark:bg-chomin-dark text-white p-4 rounded-t-lg flex-shrink-0 cursor-pointer hover:bg-chomin-dark dark:hover:bg-chomin transition-all duration-200"
+          className={`group ${currentTheme === 'dark' ? 'bg-chomin-dark hover:bg-chomin' : 'bg-chomin hover:bg-chomin-dark'} text-white p-4 rounded-t-lg flex-shrink-0 cursor-pointer transition-all duration-200`}
           onClick={toggleMinimize}
         >
           <div className="flex items-center justify-between">
@@ -374,7 +342,7 @@ export default function ChatbotWidget({ apiUrl, initialLang = 'ja', initialTheme
               
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-gray-50 dark:bg-gray-700 rounded-2xl px-4 py-3 border border-gray-200 dark:border-gray-600">
+                  <div className={`${currentTheme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'} rounded-2xl px-4 py-3 border`}>
                                       <div className="flex space-x-2">
                     <div className="w-2 h-2 bg-chomin rounded-full animate-bounce"></div>
                     <div className="w-2 h-2 bg-chomin rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -388,14 +356,14 @@ export default function ChatbotWidget({ apiUrl, initialLang = 'ja', initialTheme
             </div>
 
             {/* 입력 폼 */}
-            <div className="p-6 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-b-lg flex-shrink-0">
+            <div className={`p-6 border-t ${currentTheme === 'dark' ? 'border-gray-600 bg-gray-700' : 'border-gray-200 bg-gray-50'} rounded-b-lg flex-shrink-0`}>
               <form onSubmit={handleSubmit} className="flex space-x-3">
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder={languageTexts[currentLang].placeholder}
                   disabled={isLoading}
-                  className="flex-1 border-2 border-gray-200 dark:border-gray-600 focus:border-chomin focus:ring-2 focus:ring-chomin-light rounded-xl px-4 py-3 text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                  className={`flex-1 border-2 ${currentTheme === 'dark' ? 'border-gray-600 bg-gray-800 text-gray-100' : 'border-gray-200 bg-white text-gray-900'} focus:border-chomin focus:ring-2 focus:ring-chomin-light rounded-xl px-4 py-3 text-base`}
                 />
                 <Button 
                   type="submit" 
@@ -421,8 +389,8 @@ if (typeof window !== 'undefined') {
   
   // 위젯 컴포넌트를 전역으로 노출 (default 속성으로)
   (window as any).ItsMeChatbot = {
-    default: ChatbotWidget,
-    ChatbotWidget,
+    default: Chatbot,
+    Chatbot,
     React,
     ReactDOM
   };
