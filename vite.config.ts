@@ -7,7 +7,6 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 export default defineConfig({
   plugins: [
     react(),
-    cssInjectedByJsPlugin(),
   ],
   publicDir: false,
   define: {
@@ -16,7 +15,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/widget/WidgetEntry.tsx'),
+      entry: resolve(__dirname, 'src/widget.tsx'),
       name: 'ItsMeChatbot',
       fileName: 'widget',
       formats: ['iife']
@@ -34,10 +33,11 @@ export default defineConfig({
     },
     outDir: 'dist',
     emptyOutDir: true,
+    cssCodeSplit: false,
   },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src')
     }
-  }
+  },
 })

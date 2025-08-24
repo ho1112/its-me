@@ -42,9 +42,11 @@ const languageTexts = {
 
 interface ChatbotWidgetProps {
   apiUrl: string;
+  initialLang?: 'ko' | 'ja';
+  initialTheme?: 'light' | 'dark';
 }
 
-export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
+export default function ChatbotWidget({ apiUrl, initialLang = 'ja', initialTheme = 'light' }: ChatbotWidgetProps) {
   // 언어 감지 함수
   const getLanguage = () => {
     // 1. 쿼리 파라미터 (블로그 삽입용)
@@ -61,8 +63,8 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
       if (path.includes('/ko')) return 'ko';
     }
     
-    // 3. 기본값
-    return 'ja';
+    // 3. props에서 받은 기본값 사용
+    return initialLang;
   };
 
   const [currentLang, setCurrentLang] = useState<'ko' | 'ja'>('ja');
@@ -332,6 +334,10 @@ export default function ChatbotWidget({ apiUrl }: ChatbotWidgetProps) {
               </p>
             </div>
             {/* 오른쪽 클릭 아이콘 */}
+            {/*
+              클릭 아이콘 저작권:
+              <a href="https://www.flaticon.com/kr/free-icons/-">Freepik - Flaticon</a>
+            */}
             <div className="flex-shrink-0 text-white hover:text-gray-200 transition-colors">
               <img
                 src="https://its-me-vert.vercel.app/images/ui/click.svg"
