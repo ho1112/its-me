@@ -22,14 +22,18 @@ function initWidget() {
   styleElement.textContent = cssString;
   shadowRoot.appendChild(styleElement);
 
-  // URL 파라미터에서 설정 읽기
-  const urlParams = new URLSearchParams(window.location.search);
-  const lang = (urlParams.get('lang') || 'ja') as 'ja' | 'ko';
-  const theme = (urlParams.get('theme') || 'light') as 'light' | 'dark';
+  // ▼▼▼ 핵심 수정: 스크립트 태그의 src에서 URL 파라미터 읽기 ▼▼▼
+  // 1. 현재 실행되고 있는 스크립트 태그를 찾습니다
+  const scriptElement = document.currentScript as HTMLScriptElement;
+  
+  // 2. 스크립트 태그의 'src' 주소에서 URL 파라미터를 읽어옵니다
+  const scriptUrlParams = new URLSearchParams(scriptElement?.src.split('?')[1] || '');
+  const lang = (scriptUrlParams.get('lang') || 'ja') as 'ja' | 'ko';
+  const theme = (scriptUrlParams.get('theme') || 'light') as 'light' | 'dark';
   
   // data-api-url 속성에서 API URL 읽기
-  const scriptElement = document.currentScript as HTMLScriptElement;
   const apiUrl = scriptElement?.getAttribute('data-api-url') || 'https://its-me-vert.vercel.app/api/chat';
+  // ▲▲▲
 
   // React 앱을 Shadow DOM 안에 렌더링
   const root = createRoot(appRoot);
