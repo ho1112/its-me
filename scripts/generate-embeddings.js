@@ -22,10 +22,10 @@ if (!geminiApiKey) {
 
 const genAI = new GoogleGenAI(geminiApiKey)
 
-// 텍스트를 768차원 벡터로 변환
+// 텍스트를 3072차원 벡터로 변환
 async function generateEmbedding(text) {
   try {
-    console.log(`📝 텍스트 임베딩 중: ${text.substring(0, 30)}...`);
+    console.log(`📝 텍스트 임베딩 중: ${text.substring(0, 50)}...`);
 
     // https://ai.google.dev/api/embeddings#embed_content-JAVASCRIPT
     const result = await genAI.models.embedContent({
@@ -49,10 +49,10 @@ async function generateAllEmbeddings() {
   try {
     console.log('🚀 gemini-embedding-001 임베딩 생성을 시작합니다...')
     
-    // Supabase에서 모든 데이터 가져오기
+    // Supabase에서 모든 데이터 가져오기 (metadata 포함)
     const { data: records, error: fetchError } = await supabase
       .from('itsme')
-      .select('id, question, answer_ko, answer_ja')
+      .select('id, question, answer_ko, answer_ja, metadata')
     
     if (fetchError) {
       console.error('❌ 데이터 조회 실패:', fetchError.message)
@@ -65,7 +65,13 @@ async function generateAllEmbeddings() {
     for (const record of records) {
       console.log(`\n🔄 처리 중: ${record.question}`)
       
-      const embedding = await generateEmbedding(record.answer_ko)
+      // 일본어 우선, 한국어 fallback으로 임베딩 텍스트 구성
+      const answerText = record.answer_ja || record.answer_ko
+      const combinedText = `${record.question} ${answerText} ${record.answer_ko} ${JSON.stringify(record.metadata || {})}`
+      
+      console.log(`📝 임베딩 텍스트 구성: ${combinedText.substring(0, 100)}...`)
+      
+      const embedding = await generateEmbedding(combinedText)
       
       if (embedding) {
         // Supabase에 임베딩 업데이트

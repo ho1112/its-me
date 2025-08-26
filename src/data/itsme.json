@@ -1,65 +1,411 @@
 [
   {
-    "question": "자기소개",
-    "answer_ko": "안녕하세요! 프론트엔드 개발자 이호연입니다. 새로운 기술로 사용자 경험을 개선하는 것을 좋아하며, 5년간 다양한 웹 서비스를 개발해왔습니다.",
-    "answer_ja": "こんにちは！フロントエンド開発者のイ・ホヨンです。新しい技術でユーザー体験を改善することが好きで、5年間様々なウェブサービスの開発に携わってきました。",
-    "image_paths": ["logo_1.png", "profile.jpg"],
-    "tags": ["소개", "경력", "개인정보"]
+    "question": "자기소개, 이호연 소개",
+    "answer_ko": "안녕하세요! 데이터와 협업을 통해 대규모 서비스의 사용자 경험을 개선하는 프론트엔드 엔지니어 이호연입니다. 2018년부터 웹 개발을 시작하여, 2020년부터는 React와 Next.js 기반의 프론트엔드 개발에 집중하며 성장해왔습니다.",
+    "answer_ja": "こんにちは！データと協業を通じて大規模サービスのユーザー体験を改善するフロントエンドエンジニア、イ・ホヨンです。2018年からWeb開発を始め、2020年からはReactとNext.jsベースのフロントエンド開発に集中し成長してきました。",
+    "image_paths": [],
+    "tags": ["introduction", "private"]
   },
   {
-    "question": "이름",
-    "answer_ko": "이호연입니다.",
-    "answer_ja": "イ・ホヨンです。",
+    "question": "이름, 생년월일, 나이, 몇 살",
+    "answer_ko": "이호연(李虎演)입니다. 1990년 8월 22일에 태어났으며, 이 정보를 바탕으로 현재 나이를 계산할 수 있습니다.",
+    "answer_ja": "イ・ホヨン（李虎演）です。1990年8月22日生まれです。この情報をもとに現在の年齢を計算できます。",
     "image_paths": [],
-    "tags": ["개인정보"]
+    "tags": ["introduction"]
   },
   {
-    "question": "직업",
-    "answer_ko": "프론트엔드 개발자입니다.",
-    "answer_ja": "フロントエンド開発者です。",
+    "question": "연락처, 이메일, 전화",
+    "answer_ko": "연락은 carrien1112@gmail.com으로 부탁드립니다. 링크드인(https://www.linkedin.com/in/lee-hoyeon/)으로도 가능합니다.",
+    "answer_ja": "ご連絡はcarrien1112@gmail.comまでお願いします。 Linkedin(https://www.linkedin.com/in/lee-hoyeon/)でも可能です。",
     "image_paths": [],
-    "tags": ["경력", "직업"]
+    "tags": ["introduction", "contact"]
   },
   {
-    "question": "경력",
-    "answer_ko": "5년간 프론트엔드 개발 경험이 있습니다.",
-    "answer_ja": "5年間のフロントエンド開発経験があります。",
+    "question": "github, 깃허브",
+    "answer_ko": "https://github.com/ho1112",
+    "answer_ja": "https://github.com/ho1112",
     "image_paths": [],
-    "tags": ["경력", "개인정보"]
+    "tags": ["introduction", "contact"]
   },
   {
-    "question": "연락처",
-    "answer_ko": "이메일: hohoyeon@gmail.com, GitHub: github.com/ho1112",
-    "answer_ja": "メール: hohoyeon@gmail.com、GitHub: github.com/ho1112",
+    "question": "총 경력, 프론트엔드 경력",
+    "answer_ko": "웹 시스템 개발 경력은 2018년부터 시작하였습니다. 그 중 프론트엔드 개발에 집중하기 시작한 것은 2021년부터 입니다.",
+    "answer_ja": "Webシステムの開発経歴は2018年から始まりました。その中でフロントエンド開発に集中し始めたのは2021年からです。",
     "image_paths": [],
-    "tags": ["개인정보", "연락처"]
+    "tags": ["career"]
   },
   {
-    "question": "생년월일",
-    "answer_ko": "1990년 8월 22일입니다.",
-    "answer_ja": "1990年8月22日です。",
+    "question": "주요 기술, 기술 스택",
+    "answer_ko": "React와 Next.js를 가장 자신있게 다루며, TypeScript를 사용해 안정적인 코드를 작성하는 것을 선호합니다. 상태 관리 라이브러리로는 Redux를, 스타일링에는 Tailwind CSS와 SCSS 등을 사용한 경험이 있습니다.",
+    "answer_ja": "ReactとNext.jsを最も得意としており、TypeScriptを使用して安定したコードを書くことを好みます。状態管理ライブラリとしてはReduxを、スタイリングにはTailwind CSSやSCSSなどを使用した経験があります。",
     "image_paths": [],
-    "tags": ["개인정보"]
+    "tags": ["tech"]
   },
   {
-    "question": "주요기술",
-    "answer_ko": "React, TypeScript, Next.js, Tailwind CSS를 주로 사용합니다.",
-    "answer_ja": "React、TypeScript、Next.js、Tailwind CSSを主に使用しています。",
+    "question": "개발자로서의 강점, 역량",
+    "answer_ko": "첫째, Java 서버 개발 경험이 있어 백엔드 시스템을 이해하며 원활하게 협업할 수 있습니다. 둘째, MAU 700만 규모의 대규모 서비스를 운영하며 얻은 트래픽 대응 및 성능 최적화 경험입니다. 마지막으로, 다양한 산업군에서 일하며 새로운 도메인 지식을 빠르게 습득하고 문제에 적용하는 능력입니다.",
+    "answer_ja": "第一に、Javaサーバー開発の経験があり、バックエンドシステムを理解し円滑に協業できます。第二に、MAU700万規模の大規模サービスを運営して得たトラフィック対応及び性能最適化の経験です。最後に、多様な業界で働きながら新しいドメイン知識を迅速に習得し、問題に適用する能力です。",
     "image_paths": [],
-    "tags": ["기술", "역량", "스택"]
+    "tags": ["capability", "career"]
   },
   {
-    "question": "현업프로젝트",
-    "answer_ko": "OOO 회사에서 3년간 B2B 웹 서비스를 개발했습니다.",
-    "answer_ja": "OOO会社で3年間B2Bウェブサービスの開発に携わりました。",
+    "question": "가장 최근에 한 프로젝트는 무엇인가요?, 인재 스카우트 서비스",
+    "answer_ko": "가장 최근에는 인재 스카우트 서비스의 기업용(toB) 및 학생용(toC) 시스템을 개발했습니다. 주된 역할은 기업 측의 학생 관리, 검색, 이벤트 시스템을 만드는 것이었습니다.",
+    "answer_ja": "最も最近では、人材スカウトサービスの企業向け(toB)および学生向け(toC)システムの開発に携わりました。主な役割は、企業側の学生管理、検索、イベントシステムの作成でした。",
     "image_paths": [],
-    "tags": ["프로젝트", "현업", "경력"]
+    "tags": ["project"]
   },
   {
-    "question": "개인프로젝트",
-    "answer_ko": "AI 기반 포트폴리오 챗봇 '잇츠미'를 개인적으로 개발했습니다.",
-    "answer_ja": "AIベースのポートフォリオチャットボット「イッツミ」を個人的に開発しました。",
+    "question": "최근 프로젝트에서 어떤 성과를 냈나요?, 생산성 향상 경험",
+    "answer_ko": "레거시 코드를 리팩토링하고 Storybook을 도입하여 컴포넌트 재사용률을 높였습니다. 또한, Playwright를 이용한 E2E 테스트 자동화를 구축하여 수동 테스트 공수를 줄임으로써 팀의 전체적인 생산성 향상에 기여했습니다.",
+    "answer_ja": "レガシーコードをリファクタリングし、Storybookを導入してコンポーネントの再使用率を高めました。また、Playwrightを利用したE2Eテスト自動化を構築し、手動テストの工数を削減することで、チーム全体の生産性向上に貢献しました。",
     "image_paths": [],
-    "tags": ["프로젝트", "개인", "AI"]
+    "tags": ["project", "capability", "tech"]
+  },
+  {
+    "question": "Vue를 React로 마이그레이션한 경험에 대해 알려주세요",
+    "answer_ko": "만화 및 소설 서비스 회사에서 Vue로 만들어진 기존 페이지를 React와 Next.js App Router 기반으로 마이그레이션하는 작업을 담당했습니다. 이를 통해 페이지 로딩 속도를 개선하고, 개발자 경험(DX)을 향상시켜 신규 기능 개발 속도를 단축시키는 성과를 거두었습니다.",
+    "answer_ja": "漫画・小説サービス会社でVueで作成された既存ページをReactとNext.js App Routerベースにマイグレーションする作業を担当しました。これにより、ページ読み込み速度を改善し、開発者体験(DX)を向上させ、新規機能の開発速度を短縮する成果を上げました。",
+    "image_paths": [],
+    "tags": ["project", "capability", "tech"]
+  },
+  {
+    "question": "대규모 서비스 경험, MAU 700만",
+    "answer_ko": "여행 업계에서 MAU 700만 규모의 호텔 예약 서비스의 메인 프론트엔드 개발자로 일했습니다. 디렉터, 외부 컨설턴트, 디자이너와 협업하며 SEO 개선, 캠페인 페이지 제작, Web Component를 이용한 공통 네비게이션 시스템 구축 등 다양한 업무를 수행했습니다.",
+    "answer_ja": "旅行業界でMAU700万規模のホテル予約サービスのメインフロントエンド開発者として働きました。ディレクター、外部コンサルタント、デザイナーと協業し、SEO改善、キャンペーンページの作成、Web Componentを利用した共通ナビゲーションシステムの構築など、多様な業務を遂行しました。",
+    "image_paths": [],
+    "tags": ["capability", "project", "capability"]
+  },
+  {
+    "question": "개발자로서의 가치관, 목표",
+    "answer_ko": "코드 자체보다, 코드를 통해 사용자에게 긍정적인 변화를 가져다주는 것에 진정한 가치가 있다고 믿습니다. 데이터라는 객관적인 근거를 바탕으로 동료들과 긴밀하게 협력하여, 프로덕트의 성공과 사용자의 만족을 함께 만들어가는 파트너가 되고 싶습니다.",
+    "answer_ja": "コードそのものより、コードを通じてユーザーにポジティブな変化をもたらすことに真の価値があると信じています。データという客観的な根拠に基づき、同僚たちと緊密に協力し、プロダクトの成功とユーザーの満足を共に創り上げていくパートナーになりたいです。",
+    "image_paths": [],
+    "tags": ["introduction", "capability"]
+  },
+  {
+    "question": "가장 최근 프로젝트, 인재 스카우트 서비스, 리팩토링 경험",
+    "answer_ko": "가장 최근에는 신입 채용을 위한 인재 스카우트 서비스의 기업용(toB) 및 학생용(toC) 시스템을 개발했습니다. 주된 역할은 기업 측의 학생 관리, 검색, 이벤트 시스템을 만드는 것이었으며, 레거시 코드 리팩토링과 Storybook 도입, Playwright를 이용한 E2E 테스트 자동화를 통해 팀의 생산성 향상에 기여했습니다.",
+    "answer_ja": "最も最近では、新卒向けの人材スカウトシステムのtoB・toCシステムの開発に携わりました。主な業務は企業側の学生管理、検索、イベントシステムの作成でした。また、レガシーコードのリファクタリング及びStorybookの導入、Playwrightを利用したE2Eテストの自動化により、チームの生産性を高めました。",
+    "image_paths": [],
+    "tags": ["project", "career", "capability"],
+    "metadata": {
+      "period": "2024년 03월 ~ 현재",
+      "industry": "인재 업계",
+      "project_summary": "신입 채용 인재 스카우트 서비스 개발",
+      "role": "프론트엔드 엔지니어",
+      "responsibilities": [
+        "기업용 학생 관리, 검색, 이벤트 시스템 개발",
+        "레거시 코드 리팩토링",
+        "Storybook, Playwright 도입을 통한 생산성 향상",
+        "Node.js 및 Next.js 버전 관리 및 업데이트",
+        "리브랜딩 대응"
+      ],
+      "tech_stack": [ "React", "Next.js", "TypeScript", "GraphQL", "SCSS", "Storybook", "Playwright", "Docker", "PostgreSQL" ]
+    }
+  },
+  {
+    "question": "만화 노벨 서비스, 소설 서비스, 이벤트 페이지, Vue를 React로 마이그레이션",
+    "answer_ko": "만화 및 소설 서비스 회사에서 Vue로 만들어진 기존 노벨 응모 페이지를 React와 Next.js App Router 기반으로 마이그레이션하고 신규 개발하는 작업을 담당했습니다. 이를 통해 페이지 로딩 속도를 개선하고, 개발자 경험(DX)을 향상시켜 신규 기능 개발 속도를 단축시키는 성과를 거두었습니다.",
+    "answer_ja": "マンガ・ノベル業界で、既存のVueページをNext.js App Routerにマイグレーションして、ページローディング速度を改善し、開発者経験(DX)を向上させて新規機能開発速度を短縮しました。",
+    "image_paths": [],
+    "tags": ["project", "tech"],
+    "metadata": {
+      "period": "2023년 09월 ~ 2024년 02월",
+      "industry": "만화・소설 업계",
+      "project_summary": "노벨 응모 페이지 마이그레이션 및 신규 개발",
+      "role": "프론트엔드 엔지니어",
+      "responsibilities": [
+        "Vue 환경의 페이지를 React, Next.js(App Router)로 마이그레이션",
+        "Scroll, Observer 이벤트를 활용한 인터랙티브 페이지 제작",
+        "사용자 입력 폼 및 유효성 검사 로직 개발",
+        "반응형 디자인 구현"
+      ],
+      "tech_stack": [ "React", "Next.js", "TypeScript", "Redux-toolkit", "Tailwind CSS", "SCSS", "Storybook", "msw" ]
+    }
+  },
+  {
+    "question": "여행 업계 경력, 호텔 예약 시스템, SEO 경험, Web Component, MAU 700만",
+    "answer_ko": "여행 업계에서 MAU 700만 규모의 호텔·투어·항공권 예약 시스템의 메인 프론트엔드 개발자로 근무했습니다. 주요 업무는 캠페인 페이지 제작, Web Component를 이용한 공통 글로벌 네비게이션 시스템 구축, 그리고 CLS 개선 및 이미지 최적화를 포함한 SEO 개선이었습니다. 디렉터, 외부 컨설턴트, 디자이너와 긴밀하게 협업하며 서비스의 성장을 이끌었습니다.",
+    "answer_ja": "旅行業界でMAU700万規模のホテル・ツアー・航空券予約システムのメインフロントエンドとして働きました。キャンペーン・プランLPページ作成、Web Componentを用いたサイト共通のナビゲーションシステム構築、CLS改善・イメージ最適化、HTML構造化マークアップなどのSEO対応を担当しました。ディレクター、外部コンサルタント、デザイナーと協業してサービスのメインフロントエンドとして働きました。",
+    "image_paths": [],
+    "tags": ["career", "project", "tech", "capability"],
+    "metadata": {
+      "company": "OOO 주식회사 (가명)",
+      "period": "2021년 05월 ~ 2023년 07월",
+      "role": "프론트엔드 엔지니어 / SEO 담당",
+      "project_summary": "호텔·투어·항공권 예약 시스템 운영 및 SEO 개선",
+      "responsibilities": [
+        "캠페인 및 상품 LP 페이지 제작",
+        "LitElements 기반 Web Component를 이용한 공통 글로벌 네비게이션 개발",
+        "검색 기능 확장 및 트러블슈팅",
+        "CLS 개선, 이미지 최적화, 구조화 마크업 등 기술 SEO 전반",
+        "SSR, SSG(ISR) 페이지 제작 및 sitemap 관리",
+        "GCP와 연계한 데이터 취득 자동화 및 크롤링",
+        "Google Optimize를 이용한 A/B 테스트 진행"
+      ],
+      "tech_stack": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Styled-components",
+        "Web Components",
+        "LitElements",
+        "Redux",
+        "Storybook",
+        "Cypress",
+        "GCP",
+        "BigQuery",
+        "Docker"
+      ]
+    }
+  },
+  {
+    "question": "웹 게임 프로젝트 경험, PIXI.js, 레거시 코드 현대화",
+    "answer_ko": "Web 게임 업계에서 기존 시스템을 현대화하고 리팩토링하는 프로젝트에 참여했습니다. 주로 레거시 코드를 최신화하고 기존의 버그를 수정하여, 시스템 리뉴얼의 기반을 마련하는 역할을 담당했습니다.",
+    "answer_ja": "Webゲーム業界で、既存のシステムを最新化、リファクタリングするプロジェクトに参加しました。レガシー・コード最新化と既存の不具合修正を担当して、システムのリニューアルをできるようにしました。",
+    "image_paths": [],
+    "tags": ["project", "tech"],
+    "metadata": {
+      "period": "2020년 12월 ~ 2021년 04월",
+      "industry": "Web 게임 업계",
+      "project_summary": "기존 시스템 현대화 및 리팩토링",
+      "role": "프론트엔드 엔지니어",
+      "responsibilities": [
+        "레거시 코드 리팩토링",
+        "테스트 설계",
+        "단위 테스트 및 통합 테스트"
+      ],
+      "tech_stack": [ "JavaScript", "Node.js", "PIXI.js", "GitLab" ]
+    }
+  },
+  {
+    "question": "증권 업계 프로젝트, 주식 정보 시스템, Java, SpringBoot",
+    "answer_ko": "증권 업계에서 개인 투자자(toC)를 위한 주식 정보 전달 시스템을 신규 개발했습니다. 메인 SE/PG로서 환경 구축부터 전체 시스템 설계, DB 설계, 구현까지 주도적으로 담당했습니다.",
+    "answer_ja": "証券業界でtoC向けの株情報配信システムを新規開発しました。メインSE/PGとなり、環境構築、設計、実装まで担当しました。",
+    "image_paths": [],
+    "tags": ["project", "career", "tech"],
+    "metadata": {
+      "period": "2020년 01월 ~ 2020년 11월",
+      "industry": "증권 업계",
+      "project_summary": "toC 주식 정보 전달 시스템 신규 개발",
+      "role": "SE / PG",
+      "responsibilities": [
+        "신규 시스템 설계 및 DB 설계",
+        "환경 구축 및 구현",
+        "JavaScript 라이브러리 수정 및 설계 제안"
+      ],
+      "tech_stack": [ "Java", "SpringBoot", "JavaScript", "jQuery", "Gradle", "MyBatis", "Thymeleaf", "Heroku", "PostgreSQL" ]
+    }
+  },
+  {
+    "question": "물류 업계 프로젝트, 재고 관리 시스템",
+    "answer_ko": "물류 업계의 재고 관리 시스템 개발 프로젝트에 참여했습니다. 웹 화면과 단말기 전용 화면을 개발했으며, 소비세 증세에 대응하여 시스템의 기반이 되는 부분을 수정하는 중요한 역할을 담당했습니다.",
+    "answer_ja": "物流業界の在庫管理システム開発プロジェクトに参加しました。Webと端末専用画面作成、そして消費税増税に対応して基盤システムの修正を担当しました。",
+    "image_paths": [],
+    "tags": ["project", "career"],
+    "metadata": {
+      "period": "2019년 08월 ~ 2019년 12월",
+      "industry": "물류 업계",
+      "project_summary": "재고 관리 시스템 개발 및 소비세 증세 대응",
+      "role": "SE / PG",
+      "responsibilities": [
+        "Web 및 단말기 전용 화면 개발",
+        "CSV, Excel 출력 기능 구현",
+        "단위 테스트 및 통합 테스트 설계",
+        "소비세 증세 대응을 위한 기반 시스템 수정"
+      ],
+      "tech_stack": [ "Java", "JavaScript", "PostgreSQL", "SVN" ]
+    }
+  },
+  {
+    "question": "제조업 프로젝트, 네이티브 앱, C# 경험",
+    "answer_ko": "제조업 분야에서 전기 제어 및 하네스 설계 소프트웨어를 개발했습니다. Java와 C#으로 구성된 여러 백엔드 시스템을 연동하고, 다양한 버전의 네이ティブ 시스템을 지원하는 등 복잡한 환경에서의 개발을 경험했습니다. 해외 문의 대응 업무도 함께 수행했습니다.",
+    "answer_ja": "製造業界で電気制御・ハーネス設計ソフトウェア開発に携わりました。複数のサーバーサイドシステム(java, C#)を連携して開発し、違うバージョンのネイティブシステムに対応しました。海外問い合わせ対応も担当しました。",
+    "image_paths": [],
+    "tags": ["project", "career"],
+    "metadata": {
+      "period": "2019년 01월 ~ 2019년 06월",
+      "industry": "제조업",
+      "project_summary": "전기 제어・하네스 설계 소프트웨어 개발",
+      "role": "SE / PG",
+      "responsibilities": [
+        "추가 기능 개발 및 구현",
+        "해외 문의 대응",
+        "네이티브 앱 개발 지원"
+      ],
+      "tech_stack": [ "Java", "JavaScript", "C#", "Oracle" ]
+    }
+  },
+  {
+    "question": "부품 정보 시스템, 신입 시절 프로젝트",
+    "answer_ko": "개발자 커리어를 시작한 초기에, 제조업에서 사용하는 부품 정보 검색 시스템의 신규 기능 및 화면을 개발하는 프로젝트를 담당했습니다. 다양한 패턴의 화면이 많았기 때문에, 모든 케이스에 대응할 수 있는 구현과 테스트 케이스를 작성하는 데 집중했습니다.",
+    "answer_ja": "Web検索システムの新規機能・画面の開発を担当しました。多様なパターンの画面が多かったため、全てのケースに対応できる実装とテストケースを作成しました。",
+    "image_paths": [],
+    "tags": ["project", "career"],
+    "metadata": {
+      "period": "2018년 09월 ~ 2018년 12월",
+      "industry": "제조업",
+      "project_summary": "Web 부품 정보 검색 시스템 개발",
+      "role": "PG",
+      "responsibilities": [
+        "신규 화면 추가",
+        "단위 테스트 및 통합 테스트"
+      ],
+      "tech_stack": [ "Java", "JavaScript", "jQuery", "PostgreSQL", "SVN" ]
+    }
+  },
+  {
+    "question": "보험 업계 프로젝트, single sign on, SSO",
+    "answer_ko": "보험 업계의 사내 인증 시스템 개발 프로젝트에 참여했습니다. 주로 레거시 코드를 최신화하고, 기존 시스템과 신규 싱글 사인온(SSO) 시스템 간의 연동 패턴을 조사하고 테스트 케이스를 작성하는 업무를 수행했습니다.",
+    "answer_ja": "保険業界の社内向けシングルサインオンシステムの開発に携わりました。レガシーコード最新化、既存システムと新規システムの結合・パターンの調査とテストケースの作成を担当しました。",
+    "image_paths": [],
+    "tags": ["project", "career"],
+    "metadata": {
+      "period": "2018년 04월 ~ 2018년 08월",
+      "industry": "보험 업계",
+      "project_summary": "사내 싱글 사인온(SSO) 시스템 개발",
+      "role": "PG",
+      "responsibilities": [
+        "레거시 코드 최신화",
+        "테스트 설계",
+        "단위 테스트 및 통합 테스트"
+      ],
+      "tech_stack": [ "Java", "JavaScript", "DB2" ]
+    }
+  },
+  {
+    "question": "블로그, 개인 프로젝트, 사이드 프로젝트, 포트폴리오",
+    "answer_ko": "",
+    "answer_ja": "",
+    "image_paths": [],
+    "tags": ["portfolio"],
+    "metadata": {
+      "project_summary": "個人ブログ, mintora blog",
+      "link": "https://mintora.me/blog/ja/",
+      "tech_stack": [ "React", "Next.js", "TypeScript", "githubPage", "Tailwind CSS", "MDX" ]
+    }
+  },
+  {
+    "question": "style css lint, 개인 프로젝트, 사이드 프로젝트, 포트폴리오",
+    "answer_ko": "미사용 CSS 클래스 검출: CSS에 정의되었지만 JSX/TSX 파일에서 사용되지 않는 클래스를 찾습니다. .css, .scss, .less 파일을 지원합니다.\n\nclassnames 라이브러리(cn, classNames, clsx)를 통한 동적 클래스 구성을 완전히 지원합니다.SCSS의 @mixin 내부의 중첩된 클래스(&.oval, &.round 등)와 TypeScript/webpack의 별칭 경로(@styles/, @components/ 등)도 자동으로 지원합니다.(옵션) 동적으로 접근되는 클래스(styles[변수])는 설정에 따라 미사용 검사에서 제외할 수 있습니다.\n\n디자인 시스템 색상 규칙 검사: 사용된 색상이 디자인 시스템의 색상 팔레트에 정의된 것인지 확인합니다. .css, .scss, .less 파일을 지원합니다. 참고: 이 규칙은 현재 전처리기 변수(예: $variable, @variable)를 사용하는 선언에 대해서는 최종 색상 값을 확인할 수 없으므로 유효성 검사를 건너뜁니다.\n\n숫자 속성 제한 검사: z-index, font-size, width와 같은 숫자 CSS 속성에 대한 제한을 확인하여 일관성을 유지하고 문제를 방지합니다. .css, .scss, .less 파일을 지원합니다.",
+    "answer_ja": "未使用のCSSクラスの検出: CSSで定義されているが、JSX/TSXファイルで使用されていないクラスを検出します。.css、.scss、.lessファイルをサポートします。\n\nclassnamesライブラリ（cn、classNames、clsx）による動的クラス構成を完全にサポートします。\n\nSCSSの@mixin内のネストされたクラス（&.oval、&.roundなど）や、TypeScript/webpackのエイリアスパス（@styles/、@components/など）も自動的にサポートします。(オプションで、styles[variable] のような動的にアクセスされるクラスは設定により未使用クラス検出から除外できます。)\n\nデザインシステムのカラー規則のチェック: 使用されている色がデザインシステムのカラーパレットで定義されたものであるかを確認します。.css、.scss、.lessファイルをサポートします。注: このルールは現在、プリプロセッサ変数（例: $variable、@variable）を使用する宣言については、最終的な色値を解決できないため、検証をスキップします。\n\n数値プロパティの制限のチェック: z-index、font-size、widthなどの数値CSSプロパティの制限をチェックし、一貫性を維持し、問題を防止します。.css、.scss、.lessファイルをサポートします。",
+    "image_paths": ["style-setnry_ex.webp", "style-sentry_settings.webp"],
+    "tags": ["portfolio"],
+    "metadata": {
+      "project_summary": "style sentry, 미사용 스타일(css, sass, less, module css), 색상 규칙, 숫자 속성 제한 린팅 npm & vscode extension",
+      "link": "https://www.npmjs.com/package/style-sentry, https://github.com/ho1112/style-sentry#readme, https://marketplace.visualstudio.com/items?itemName=leehoyeon.style-sentry-vscode",
+      "tech_stack": [ "React", "TypeScript", "postcss", "VSCode", "vsce", "npm" ]
+    }
+  },
+  {
+    "question": "LINE, 개인 프로젝트, 사이드 프로젝트, 포트폴리오",
+    "answer_ko": "",
+    "answer_ja": "",
+    "image_paths": [],
+    "tags": ["portfolio"],
+    "metadata": {
+      "project_summary": "SBI証券の配当金自動取得LINEボット",
+      "link": "https://github.com/ho1112/cha-line",
+      "tech_stack": [ "React", "Next.js", "TypeScript", "line/bot-sdk", "express", "csv-parser", "Playwright", "GAS", "GCP VM" ]
+    }
+  },
+  {
+    "question": "RAG, 챗봇, 개인 프로젝트, 사이드 프로젝트, 포트폴리오",
+    "answer_ko": "",
+    "answer_ja": "",
+    "image_paths": [],
+    "tags": ["portfolio", "ai"],
+    "metadata": {
+      "project_summary": "it's me project, 自分を紹介するチャットボット",
+      "link": "https://its-me-vert.vercel.app/, https://github.com/ho1112/its-me",
+      "tech_stack": [ "RAG", "gemini", "langchain", "supabase", "vite", "React", "Next.js", "TypeScript", "Tailwind CSS" ]
+    }
+  },
+  {
+    "question": "왜 프론트엔드가 되었는가, 계기, 동기",
+    "answer_ko": "",
+    "answer_ja": "",
+    "image_paths": [],
+    "tags": [""]
+  },
+  {
+    "question": "하고 싶은 일, 원하는 일과 업무, 희망 포지션, 희망 업계",
+    "answer_ko": "",
+    "answer_ja": "",
+    "image_paths": [],
+    "tags": [""]
+  },
+  {
+    "question": "トリブル·シューティング, 問題解決, 困ったこと",
+    "answer_ko": "",
+    "answer_ja": "",
+    "image_paths": [],
+    "tags": [""]
+  },
+  {
+    "question": "長所と短所",
+    "answer_ko": "",
+    "answer_ja": "",
+    "image_paths": [],
+    "tags": [""]
+  },
+  {
+    "question": "취미, 주말에 뭐 해, 한가할 때",
+    "answer_ko": "최근에는 런닝을 하고 있습니다. 집 근처의 공원에서 일주일에 30km정도 달리고 있습니다. 햇빛이 없는 밤 시간에 달리는 것을 좋아합니다. 그리고 주말에는 개인 블로그 글 작성 및 업데이트 작업도 하고 있습니다.",
+    "answer_ja": "",
+    "image_paths": [],
+    "tags": ["introduction", "etc"]
+  },
+  {
+    "question": "最近、ハマっていること, 勉強していること",
+    "answer_ko": "최근에는 AI로 여러가지 작업하는데 빠져있습니다. 바이브 코딩, 블로그 포스트 작성, 공부용으로 폭 넓게 사용 중입니다. 개인 프로젝트와 실제 업무에서도 AI와 협업하고 있습니다.",
+    "answer_ja": "",
+    "image_paths": [],
+    "tags": ["ai", "portfolio", "tech"]
+  },
+  {
+    "question": "주식, 재테크, 돈, 관심사, 좋아하는 것",
+    "answer_ko": "꾸준히 NISA로 주식 투자를 하고 있습니다. 주로 S&P500을 추종하는 VOO를 매수하고 있습니다. 부자가 되고 싶어요.",
+    "answer_ja": "",
+    "image_paths": [],
+    "tags": ["etc"]
+  },
+  {
+    "question": "일본어 실력, 일본어, 자격증, JLPT, N1",
+    "answer_ko": "2016년 8월에 일본어 능력 시험(JLPT) 최고 등급인 N1을 취득했습니다. 비즈니스 레벨의 일본어 커뮤니케이션이 가능하여, 일본인 동료들과의 기술적인 논의나 설계 협업을 원활하게 진행할 수 있습니다.",
+    "answer_ja": "2016年8月に日本語能力試験(JLPT)の最上位レベルであるN1を取得しました。ビジネスレベルでの日本語コミュニケーションが可能で、日本の同僚との技術的な議論や設計の協業を円滑に進めることができます。",
+    "image_paths": [],
+    "tags": ["capability", "etc"],
+    "metadata": {
+      "qualification": "日本語能力試験1級 (JLPT N1)",
+      "date": "2016년 08월"
+    }
+  },
+  {
+    "question": "군대, 병역, 해병대, 한국에서의 경험",
+    "answer_ko": "대한민국 해병대에서 2010년 2월부터 2011년 12월까지 약 2년간 통신병으로 복무하고 병장으로 만기 전역했습니다. 해병대 경험을 통해 힘든 상황에서도 포기하지 않는 강한 정신력과 팀워크의 중요성을 배울 수 있었고, 이는 개발자로서 어려운 문제를 해결해나가는 데 큰 밑거름이 되고 있습니다.",
+    "answer_ja": "大韓民国の海兵隊で2010年2月から2011年12月まで約2年間服務し、兵長として満期転役しました。海兵隊の経験を通じて、困難な状況でも諦めない強い精神力とチームワークの重要性を学ぶことができ、これは開発者として難しい問題を解決していく上で大きな土台となっています。",
+    "image_paths": ["rokmc.webp"],
+    "tags": ["etc", "introduction", "capability"],
+    "metadata": {
+      "service": "大韓民国の海兵隊 (Republic of Korea Marine Corps)",
+      "period": "2010년 02월 ~ 2011년 12월",
+      "rank": "兵長 (Corporal)"
+    }
+  },
+  {
+    "question": "대학교, 대학, 전공, 학력, 인하대학교, INHA, 한국에서의 경험",
+    "answer_ko": "개발자가 되기 전에는 인하대학교에서 일본언어문화를 전공했습니다. 2009년에 입학하여 2017년에 졸업했습니다. 이 경험은 일본 문화와 언어에 대한 깊은 이해를 바탕으로, 현재 일본에서 개발자로서 원활하게 소통하고 협업하는 데 큰 자산이 되고 있습니다.",
+    "answer_ja": "開発者になる前は、仁荷大学で日本言語文化学を専攻しました。2009年に入学し、2017年に卒業しました。この経験は、日本文化と日本語への深い理解を通じて、現在日本で開発者として円滑にコミュニケーションし、協業する上で大きな資産となっています。",
+    "image_paths": [],
+    "tags": ["introduction", "career"],
+    "metadata": {
+      "university": "인하대학교 (INHA University, 仁荷大学)",
+      "major": "日本言語文化学",
+      "period": "2009년 03월 ~ 2017년 02월"
+    }
   }
+
+
 ]
