@@ -49,20 +49,62 @@ function generateSuggestions(
   language: string, 
   searchResults: Document[], 
   isFirstMessage: boolean = false,
-  isSearchFailed: boolean = false
+  isSearchFailed: boolean = false,
+  usedSuggestions: string[] = []
 ) {
+  // 사용되지 않은 질문들만 필터링하는 헬퍼 함수
+  const filterUsedSuggestions = (suggestions: string[]) => {
+    return suggestions.filter(suggestion => !usedSuggestions.includes(suggestion));
+  };
+  
+  // 랜덤 질문들을 가져오는 헬퍼 함수 (부족할 때 보충용)
+  const getRandomUnusedSuggestions = (language: string) => {
+    const allSuggestions = suggestionDecks.follow_up
+      .flatMap(deck => deck[language as keyof typeof deck] || deck.ko)
+      .filter(suggestion => !usedSuggestions.includes(suggestion));
+    
+    const shuffled = allSuggestions.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 3);
+  };
+
   // 대화 시작 시
   if (isFirstMessage) {
+    const initialSuggestions = suggestionDecks.initial[language as keyof typeof suggestionDecks.initial] || suggestionDecks.initial.ko;
+    const filteredSuggestions = filterUsedSuggestions(initialSuggestions);
+    
+    // 부족하면 랜덤으로 보충
+    if (filteredSuggestions.length < 3) {
+      const randomSuggestions = getRandomUnusedSuggestions(language);
+      const combinedSuggestions = [...filteredSuggestions, ...randomSuggestions];
+      return {
+        suggestions: combinedSuggestions.slice(0, 3),
+        topic: RECOMMENDATION_TOPICS.INITIAL
+      };
+    }
+    
     return {
-      suggestions: suggestionDecks.initial[language as keyof typeof suggestionDecks.initial] || suggestionDecks.initial.ko,
+      suggestions: filteredSuggestions.slice(0, 3),
       topic: RECOMMENDATION_TOPICS.INITIAL
     };
   }
   
   // 검색 실패 시
   if (isSearchFailed) {
+    const fallbackSuggestions = suggestionDecks.fallback[language as keyof typeof suggestionDecks.fallback] || suggestionDecks.fallback.ko;
+    const filteredSuggestions = filterUsedSuggestions(fallbackSuggestions);
+    
+    // 부족하면 랜덤으로 보충
+    if (filteredSuggestions.length < 3) {
+      const randomSuggestions = getRandomUnusedSuggestions(language);
+      const combinedSuggestions = [...filteredSuggestions, ...randomSuggestions];
+      return {
+        suggestions: combinedSuggestions.slice(0, 3),
+        topic: RECOMMENDATION_TOPICS.FALLBACK
+      };
+    }
+    
     return {
-      suggestions: suggestionDecks.fallback[language as keyof typeof suggestionDecks.fallback] || suggestionDecks.fallback.ko,
+      suggestions: filteredSuggestions.slice(0, 3),
       topic: RECOMMENDATION_TOPICS.FALLBACK
     };
   }
@@ -75,30 +117,59 @@ function generateSuggestions(
       return metadata.tags || [];
     });
     
+    // 태그 빈도 계산 (중복 제거 + 빈도 기반)
+    const tagFrequency: { [key: string]: number } = {};
+    allTags.forEach(tag => {
+      tagFrequency[tag] = (tagFrequency[tag] || 0) + 1;
+    });
+    
+    console.log('📊 태그 빈도:', tagFrequency);
+    
     // follow_up 덱 중에서 태그가 가장 많이 일치하는 것을 선택
     let bestMatch = null;
-    let maxMatchCount = 0;
+    let maxMatchScore = 0;
     
     for (const deck of suggestionDecks.follow_up) {
-      const matchCount = deck.tags.filter(tag => allTags.includes(tag)).length;
-      if (matchCount > maxMatchCount) {
-        maxMatchCount = matchCount;
+      // 각 덱의 태그들과 검색 결과 태그들의 매칭 점수 계산
+      const matchScore = deck.tags.reduce((score: number, tag: string) => {
+        return score + (tagFrequency[tag] || 0);
+      }, 0);
+      
+      console.log(`🎯 ${deck.tags.join(',')} 덱 매칭 점수: ${matchScore}`);
+      
+      if (matchScore > maxMatchScore) {
+        maxMatchScore = matchScore;
         bestMatch = deck;
       }
     }
     
-    if (bestMatch && maxMatchCount > 0) {
+    console.log(`🏆 선택된 덱: ${bestMatch?.tags.join(',')}, 점수: ${maxMatchScore}`);
+    
+    if (bestMatch && maxMatchScore > 0) {
+      const followUpSuggestions = bestMatch[language as keyof typeof bestMatch] || bestMatch.ko;
+      const filteredSuggestions = filterUsedSuggestions(followUpSuggestions);
+      
+      // 부족하면 랜덤으로 보충
+      if (filteredSuggestions.length < 3) {
+        const randomSuggestions = getRandomUnusedSuggestions(language);
+        const combinedSuggestions = [...filteredSuggestions, ...randomSuggestions];
+        return {
+          suggestions: combinedSuggestions.slice(0, 3),
+          topic: bestMatch.tags.join(',') + '+additional'
+        };
+      }
+      
       return {
-        suggestions: bestMatch[language as keyof typeof bestMatch] || bestMatch.ko,
+        suggestions: filteredSuggestions.slice(0, 3),
         topic: bestMatch.tags.join(',') // 태그들을 쉼표로 구분하여 topic으로 사용
       };
     }
   }
   
-  // 기본값: 추천질문 없음
+  // 기본값: 랜덤 추천질문
   return {
-    suggestions: [],
-    topic: null
+    suggestions: getRandomUnusedSuggestions(language),
+    topic: 'random'
   };
 }
 
@@ -281,8 +352,9 @@ export async function POST(request: NextRequest) {
     // 추천질문 생성
     const isFirstMessage = !request.headers.get('x-chat-history'); // 간단한 첫 메시지 체크
     const isSearchFailed = searchResults.length === 0 || response.includes(NO_ANSWER_KEYWORD);
+    const usedSuggestions = JSON.parse(request.headers.get('x-used-suggestions') || '[]');
     
-    const suggestions = generateSuggestions(language, searchResults, isFirstMessage, isSearchFailed);
+    const suggestions = generateSuggestions(language, searchResults, isFirstMessage, isSearchFailed, usedSuggestions);
 
     // 이미지 정보 추출 - ragChain과 동일한 검색을 다시 실행하여 이미지 경로들 가져오기
     const { data: imageResults } = await supabase

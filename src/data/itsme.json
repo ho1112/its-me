@@ -1,10 +1,10 @@
 [
   {
     "question": "자기소개, 이호연 소개",
-    "answer_ko": "안녕하세요! 데이터와 협업을 통해 대규모 서비스의 사용자 경험을 개선하는 프론트엔드 엔지니어 이호연입니다. 2018년부터 웹 개발을 시작하여, 2020년부터는 React와 Next.js 기반의 프론트엔드 개발에 집중하며 성장해왔습니다.",
-    "answer_ja": "こんにちは！データと協業を通じて大規模サービスのユーザー体験を改善するフロントエンドエンジニア、イ・ホヨンです。2018年からWeb開発を始め、2020年からはReactとNext.jsベースのフロントエンド開発に集中し成長してきました。",
+    "answer_ko": "안녕하세요! 데이터와 협업을 통해 대규모 서비스의 사용자 경험을 개선하는 프론트엔드 엔지니어 이호연입니다. 2018년부터 일본에서 웹 개발을 시작하여, 2020년부터는 React와 Next.js 기반의 프론트엔드 엔지니어로 일하고 있습니다.",
+    "answer_ja": "こんにちは！データと協業を通じて大規模サービスのユーザー体験を改善するフロントエンドエンジニア、イ・ホヨンです。2018年から日本でWeb開発を始め、2020年からはReactとNext.jsベースのフロントエンドエンジニアとして働いています。",
     "image_paths": [],
-    "tags": ["introduction", "private"]
+    "tags": ["introduction"]
   },
   {
     "question": "이름, 생년월일, 나이, 몇 살",
@@ -18,14 +18,14 @@
     "answer_ko": "연락은 carrien1112@gmail.com으로 부탁드립니다. 링크드인(https://www.linkedin.com/in/lee-hoyeon/)으로도 가능합니다.",
     "answer_ja": "ご連絡はcarrien1112@gmail.comまでお願いします。 Linkedin(https://www.linkedin.com/in/lee-hoyeon/)でも可能です。",
     "image_paths": [],
-    "tags": ["introduction", "contact"]
+    "tags": ["introduction"]
   },
   {
     "question": "github, 깃허브",
     "answer_ko": "https://github.com/ho1112",
     "answer_ja": "https://github.com/ho1112",
     "image_paths": [],
-    "tags": ["introduction", "contact"]
+    "tags": ["introduction"]
   },
   {
     "question": "총 경력, 프론트엔드 경력",
@@ -42,56 +42,31 @@
     "tags": ["tech"]
   },
   {
-    "question": "개발자로서의 강점, 역량",
-    "answer_ko": "첫째, Java 서버 개발 경험이 있어 백엔드 시스템을 이해하며 원활하게 협업할 수 있습니다. 둘째, MAU 700만 규모의 대규모 서비스를 운영하며 얻은 트래픽 대응 및 성능 최적화 경험입니다. 마지막으로, 다양한 산업군에서 일하며 새로운 도메인 지식을 빠르게 습득하고 문제에 적용하는 능력입니다.",
-    "answer_ja": "第一に、Javaサーバー開発の経験があり、バックエンドシステムを理解し円滑に協業できます。第二に、MAU700万規模の大規模サービスを運営して得たトラフィック対応及び性能最適化の経験です。最後に、多様な業界で働きながら新しいドメイン知識を迅速に習得し、問題に適用する能力です。",
-    "image_paths": [],
-    "tags": ["capability", "career"]
-  },
-  {
-    "question": "가장 최근에 한 프로젝트는 무엇인가요?, 인재 스카우트 서비스",
-    "answer_ko": "가장 최근에는 인재 스카우트 서비스의 기업용(toB) 및 학생용(toC) 시스템을 개발했습니다. 주된 역할은 기업 측의 학생 관리, 검색, 이벤트 시스템을 만드는 것이었습니다.",
-    "answer_ja": "最も最近では、人材スカウトサービスの企業向け(toB)および学生向け(toC)システムの開発に携わりました。主な役割は、企業側の学生管理、検索、イベントシステムの作成でした。",
-    "image_paths": [],
-    "tags": ["project"]
-  },
-  {
-    "question": "최근 프로젝트에서 어떤 성과를 냈나요?, 생산성 향상 경험",
+    "question": "생산성 향상 경험",
     "answer_ko": "레거시 코드를 리팩토링하고 Storybook을 도입하여 컴포넌트 재사용률을 높였습니다. 또한, Playwright를 이용한 E2E 테스트 자동화를 구축하여 수동 테스트 공수를 줄임으로써 팀의 전체적인 생산성 향상에 기여했습니다.",
     "answer_ja": "レガシーコードをリファクタリングし、Storybookを導入してコンポーネントの再使用率を高めました。また、Playwrightを利用したE2Eテスト自動化を構築し、手動テストの工数を削減することで、チーム全体の生産性向上に貢献しました。",
     "image_paths": [],
-    "tags": ["project", "capability", "tech"]
-  },
-  {
-    "question": "Vue를 React로 마이그레이션한 경험에 대해 알려주세요",
-    "answer_ko": "만화 및 소설 서비스 회사에서 Vue로 만들어진 기존 페이지를 React와 Next.js App Router 기반으로 마이그레이션하는 작업을 담당했습니다. 이를 통해 페이지 로딩 속도를 개선하고, 개발자 경험(DX)을 향상시켜 신규 기능 개발 속도를 단축시키는 성과를 거두었습니다.",
-    "answer_ja": "漫画・小説サービス会社でVueで作成された既存ページをReactとNext.js App Routerベースにマイグレーションする作業を担当しました。これにより、ページ読み込み速度を改善し、開発者体験(DX)を向上させ、新規機能の開発速度を短縮する成果を上げました。",
-    "image_paths": [],
-    "tags": ["project", "capability", "tech"]
-  },
-  {
-    "question": "대규모 서비스 경험, MAU 700만",
-    "answer_ko": "여행 업계에서 MAU 700만 규모의 호텔 예약 서비스의 메인 프론트엔드 개발자로 일했습니다. 디렉터, 외부 컨설턴트, 디자이너와 협업하며 SEO 개선, 캠페인 페이지 제작, Web Component를 이용한 공통 네비게이션 시스템 구축 등 다양한 업무를 수행했습니다.",
-    "answer_ja": "旅行業界でMAU700万規模のホテル予約サービスのメインフロントエンド開発者として働きました。ディレクター、外部コンサルタント、デザイナーと協業し、SEO改善、キャンペーンページの作成、Web Componentを利用した共通ナビゲーションシステムの構築など、多様な業務を遂行しました。",
-    "image_paths": [],
-    "tags": ["capability", "project", "capability"]
+    "tags": ["project", "capability", "tech"],
+    "metadata": {
+      "link": "https://mintora.me/blog/ja/workLog/playwright/"
+    }
   },
   {
     "question": "개발자로서의 가치관, 목표",
-    "answer_ko": "코드 자체보다, 코드를 통해 사용자에게 긍정적인 변화를 가져다주는 것에 진정한 가치가 있다고 믿습니다. 데이터라는 객관적인 근거를 바탕으로 동료들과 긴밀하게 협력하여, 프로덕트의 성공과 사용자의 만족을 함께 만들어가는 파트너가 되고 싶습니다.",
-    "answer_ja": "コードそのものより、コードを通じてユーザーにポジティブな変化をもたらすことに真の価値があると信じています。データという客観的な根拠に基づき、同僚たちと緊密に協力し、プロダクトの成功とユーザーの満足を共に創り上げていくパートナーになりたいです。",
+    "answer_ko": "거창한 목표를 내세우기보다는, 제가 잘하고 좋아하는 일에 꾸준히 집중하는 것을 중요하게 생각합니다. 복잡한 문제에 부딪혔을 때 포기하지 않고, 해결책을 찾아내는 과정 자체에서 큰 만족을 느낍니다. 제가 특별한 재능을 가졌다고 생각하지는 않지만, 저에게 주어진 역할은 어떤 상황에서든 책임감을 가지고 완수할 수 있다는 자신감이 있습니다. 동료들에게는 '함께 일하기 편하고 믿을 수 있는 개발자'로 기억되고 싶습니다.",
+    "answer_ja": "壮大な目標を掲げるより、自分が得意で好きなことに着実に集中することが重要だと考えています。複雑な問題に直面した時に諦めず、解決策を見つけ出すプロセスそのものに大きな満足感を感じます。自分に特別な才能があるとは思いませんが、与えられた役割はどんな状況でも責任感を持ってやり遂げられるという自信があります。同僚たちには「一緒に働きやすく、信頼できる開発者」として記憶されたいです。",
     "image_paths": [],
     "tags": ["introduction", "capability"]
   },
   {
     "question": "가장 최근 프로젝트, 인재 스카우트 서비스, 리팩토링 경험",
-    "answer_ko": "가장 최근에는 신입 채용을 위한 인재 스카우트 서비스의 기업용(toB) 및 학생용(toC) 시스템을 개발했습니다. 주된 역할은 기업 측의 학생 관리, 검색, 이벤트 시스템을 만드는 것이었으며, 레거시 코드 리팩토링과 Storybook 도입, Playwright를 이용한 E2E 테스트 자동화를 통해 팀의 생산성 향상에 기여했습니다.",
-    "answer_ja": "最も最近では、新卒向けの人材スカウトシステムのtoB・toCシステムの開発に携わりました。主な業務は企業側の学生管理、検索、イベントシステムの作成でした。また、レガシーコードのリファクタリング及びStorybookの導入、Playwrightを利用したE2Eテストの自動化により、チームの生産性を高めました。",
+    "answer_ko": "가장 최근에는 신입 채용을 위한 인재 스카우트 서비스의 기업용(toB) 시스템을 개발했습니다. 주된 역할은 기업 측의 학생 관리, 검색, 이벤트 시스템을 만드는 것이었으며, 레거시 코드 리팩토링과 Storybook 도입, Playwright를 이용한 E2E 테스트 자동화를 통해 팀의 생산성 향상에 기여했습니다.",
+    "answer_ja": "最も最近では、新卒向けの人材スカウトサービスの企業向け(toB)システムの開発に携わりました。主な役割は企業側の学生管理、検索、イベントシステムの作成でした。また、レガシーコードのリファクタリング及びStorybookの導入、Playwrightを利用したE2Eテストの自動化により、チームの生産性を高めました。",
     "image_paths": [],
     "tags": ["project", "career", "capability"],
     "metadata": {
       "period": "2024년 03월 ~ 현재",
-      "industry": "인재 업계",
+      "industry": "인재 업계(レバレジーズ)",
       "project_summary": "신입 채용 인재 스카우트 서비스 개발",
       "role": "프론트엔드 엔지니어",
       "responsibilities": [
@@ -106,15 +81,16 @@
   },
   {
     "question": "만화 노벨 서비스, 소설 서비스, 이벤트 페이지, Vue를 React로 마이그레이션",
-    "answer_ko": "만화 및 소설 서비스 회사에서 Vue로 만들어진 기존 노벨 응모 페이지를 React와 Next.js App Router 기반으로 마이그레이션하고 신규 개발하는 작업을 담당했습니다. 이를 통해 페이지 로딩 속도를 개선하고, 개발자 경험(DX)을 향상시켜 신규 기능 개발 속도를 단축시키는 성과를 거두었습니다.",
-    "answer_ja": "マンガ・ノベル業界で、既存のVueページをNext.js App Routerにマイグレーションして、ページローディング速度を改善し、開発者経験(DX)を向上させて新規機能開発速度を短縮しました。",
-    "image_paths": [],
-    "tags": ["project", "tech"],
+    "answer_ko": "만화 및 소설 서비스 회사에서 Vue로 만들어진 전년도 노벨 응모 페이지를 React와 Next.js App Router 기반으로 마이그레이션하고 신년도 페이지를 신규 개발하는 작업을 담당했습니다. 이를 통해 페이지 로딩 속도를 개선하고, 개발자 경험(DX)을 향상시켜 신규 기능 개발 속도를 단축시키는 성과를 거두었습니다.",
+    "answer_ja": "マンガ・ノベル業界で、前年度のVueで作成されたノベル応募ページをReactとNext.js App Routerベースにマイグレーションし、新年ページを新規開発する作業を担当しました。これにより、ページローディング速度を改善し、開発者経験(DX)を向上させて新規機能開発速度を短縮する成果を上げました。",
+    "image_paths": ["piccoma.png"],
+    "tags": ["project", "career", "tech"],
     "metadata": {
       "period": "2023년 09월 ~ 2024년 02월",
-      "industry": "만화・소설 업계",
+      "industry": "만화・소설 업계(ピッコマ)",
       "project_summary": "노벨 응모 페이지 마이그레이션 및 신규 개발",
       "role": "프론트엔드 엔지니어",
+      "link": "https://novel.piccoma.com/web/2024/",
       "responsibilities": [
         "Vue 환경의 페이지를 React, Next.js(App Router)로 마이그레이션",
         "Scroll, Observer 이벤트를 활용한 인터랙티브 페이지 제작",
@@ -128,11 +104,11 @@
     "question": "여행 업계 경력, 호텔 예약 시스템, SEO 경험, Web Component, MAU 700만",
     "answer_ko": "여행 업계에서 MAU 700만 규모의 호텔·투어·항공권 예약 시스템의 메인 프론트엔드 개발자로 근무했습니다. 주요 업무는 캠페인 페이지 제작, Web Component를 이용한 공통 글로벌 네비게이션 시스템 구축, 그리고 CLS 개선 및 이미지 최적화를 포함한 SEO 개선이었습니다. 디렉터, 외부 컨설턴트, 디자이너와 긴밀하게 협업하며 서비스의 성장을 이끌었습니다.",
     "answer_ja": "旅行業界でMAU700万規模のホテル・ツアー・航空券予約システムのメインフロントエンドとして働きました。キャンペーン・プランLPページ作成、Web Componentを用いたサイト共通のナビゲーションシステム構築、CLS改善・イメージ最適化、HTML構造化マークアップなどのSEO対応を担当しました。ディレクター、外部コンサルタント、デザイナーと協業してサービスのメインフロントエンドとして働きました。",
-    "image_paths": [],
-    "tags": ["career", "project", "tech", "capability"],
+    "image_paths": ["skyticket.png"],
+    "tags": ["project", "career", "tech", "capability"],
     "metadata": {
-      "company": "OOO 주식회사 (가명)",
       "period": "2021년 05월 ~ 2023년 07월",
+      "industry": "여행・호텔 업계(skyticket)",
       "role": "프론트엔드 엔지니어 / SEO 담당",
       "project_summary": "호텔·투어·항공권 예약 시스템 운영 및 SEO 개선",
       "responsibilities": [
@@ -165,7 +141,7 @@
     "answer_ko": "Web 게임 업계에서 기존 시스템을 현대화하고 리팩토링하는 프로젝트에 참여했습니다. 주로 레거시 코드를 최신화하고 기존의 버그를 수정하여, 시스템 리뉴얼의 기반을 마련하는 역할을 담당했습니다.",
     "answer_ja": "Webゲーム業界で、既存のシステムを最新化、リファクタリングするプロジェクトに参加しました。レガシー・コード最新化と既存の不具合修正を担当して、システムのリニューアルをできるようにしました。",
     "image_paths": [],
-    "tags": ["project", "tech"],
+    "tags": ["project", "career", "tech"],
     "metadata": {
       "period": "2020년 12월 ~ 2021년 04월",
       "industry": "Web 게임 업계",
@@ -184,10 +160,10 @@
     "answer_ko": "증권 업계에서 개인 투자자(toC)를 위한 주식 정보 전달 시스템을 신규 개발했습니다. 메인 SE/PG로서 환경 구축부터 전체 시스템 설계, DB 설계, 구현까지 주도적으로 담당했습니다.",
     "answer_ja": "証券業界でtoC向けの株情報配信システムを新規開発しました。メインSE/PGとなり、環境構築、設計、実装まで担当しました。",
     "image_paths": [],
-    "tags": ["project", "career", "tech"],
+    "tags": ["project", "career"],
     "metadata": {
       "period": "2020년 01월 ~ 2020년 11월",
-      "industry": "증권 업계",
+      "industry": "증권 업계(東証)",
       "project_summary": "toC 주식 정보 전달 시스템 신규 개발",
       "role": "SE / PG",
       "responsibilities": [
@@ -206,7 +182,7 @@
     "tags": ["project", "career"],
     "metadata": {
       "period": "2019년 08월 ~ 2019년 12월",
-      "industry": "물류 업계",
+      "industry": "물류 업계(KONAMI)",
       "project_summary": "재고 관리 시스템 개발 및 소비세 증세 대응",
       "role": "SE / PG",
       "responsibilities": [
@@ -226,7 +202,7 @@
     "tags": ["project", "career"],
     "metadata": {
       "period": "2019년 01월 ~ 2019년 06월",
-      "industry": "제조업",
+      "industry": "제조업(図研)",
       "project_summary": "전기 제어・하네스 설계 소프트웨어 개발",
       "role": "SE / PG",
       "responsibilities": [
@@ -240,7 +216,7 @@
   {
     "question": "부품 정보 시스템, 신입 시절 프로젝트",
     "answer_ko": "개발자 커리어를 시작한 초기에, 제조업에서 사용하는 부품 정보 검색 시스템의 신규 기능 및 화면을 개발하는 프로젝트를 담당했습니다. 다양한 패턴의 화면이 많았기 때문에, 모든 케이스에 대응할 수 있는 구현과 테스트 케이스를 작성하는 데 집중했습니다.",
-    "answer_ja": "Web検索システムの新規機能・画面の開発を担当しました。多様なパターンの画面が多かったため、全てのケースに対応できる実装とテストケースを作成しました。",
+    "answer_ja": "開発者キャリアを開始した初期に、製造業で使用する部品情報検索システムの新規機能及び画面を開発するプロジェクトを担当しました。多様なパターンの画面が多かったため、全てのケースに対応できる実装とテストケースを作成することに集中しました。",
     "image_paths": [],
     "tags": ["project", "career"],
     "metadata": {
@@ -263,7 +239,7 @@
     "tags": ["project", "career"],
     "metadata": {
       "period": "2018년 04월 ~ 2018년 08월",
-      "industry": "보험 업계",
+      "industry": "보험 업계(第一生命)",
       "project_summary": "사내 싱글 사인온(SSO) 시스템 개발",
       "role": "PG",
       "responsibilities": [
@@ -276,14 +252,14 @@
   },
   {
     "question": "블로그, 개인 프로젝트, 사이드 프로젝트, 포트폴리오",
-    "answer_ko": "",
-    "answer_ja": "",
+    "answer_ko": "Next.js와 MDX를 활용한 정적 블로그 사이트를 구축했습니다. 다크모드, 다국어 지원(한국어/일본어)을 포함한 블로그 플랫폼으로, GitHub Pages를 통한 정적 사이트 호스팅을 사용하고 있습니다. 개발자 경험을 공유하고 기술적 성장 과정을 기록하는 공간으로 활용하고 있습니다.",
+    "answer_ja": "Next.jsとMDXを活用した静的ブログサイトを構築しました。ダークモード、多言語対応（韓国語/日本語）を含むブログプラットフォームで、GitHub Pagesを通じた静的サイトホスティングを使用しています。開発者経験を共有し、技術的成長過程を記録する空間として活用しています。",
     "image_paths": [],
-    "tags": ["portfolio"],
+    "tags": ["portfolio", "tech", "introduction", "capability"],
     "metadata": {
-      "project_summary": "個人ブログ, mintora blog",
-      "link": "https://mintora.me/blog/ja/",
-      "tech_stack": [ "React", "Next.js", "TypeScript", "githubPage", "Tailwind CSS", "MDX" ]
+      "project_summary": "개인 블로그 플랫폼, mintora blog",
+      "link": "https://mintora.me/profile/ja/",
+      "tech_stack": [ "React", "Next.js", "TypeScript", "GitHub Pages", "Tailwind CSS", "MDX" ]
     }
   },
   {
@@ -291,83 +267,95 @@
     "answer_ko": "미사용 CSS 클래스 검출: CSS에 정의되었지만 JSX/TSX 파일에서 사용되지 않는 클래스를 찾습니다. .css, .scss, .less 파일을 지원합니다.\n\nclassnames 라이브러리(cn, classNames, clsx)를 통한 동적 클래스 구성을 완전히 지원합니다.SCSS의 @mixin 내부의 중첩된 클래스(&.oval, &.round 등)와 TypeScript/webpack의 별칭 경로(@styles/, @components/ 등)도 자동으로 지원합니다.(옵션) 동적으로 접근되는 클래스(styles[변수])는 설정에 따라 미사용 검사에서 제외할 수 있습니다.\n\n디자인 시스템 색상 규칙 검사: 사용된 색상이 디자인 시스템의 색상 팔레트에 정의된 것인지 확인합니다. .css, .scss, .less 파일을 지원합니다. 참고: 이 규칙은 현재 전처리기 변수(예: $variable, @variable)를 사용하는 선언에 대해서는 최종 색상 값을 확인할 수 없으므로 유효성 검사를 건너뜁니다.\n\n숫자 속성 제한 검사: z-index, font-size, width와 같은 숫자 CSS 속성에 대한 제한을 확인하여 일관성을 유지하고 문제를 방지합니다. .css, .scss, .less 파일을 지원합니다.",
     "answer_ja": "未使用のCSSクラスの検出: CSSで定義されているが、JSX/TSXファイルで使用されていないクラスを検出します。.css、.scss、.lessファイルをサポートします。\n\nclassnamesライブラリ（cn、classNames、clsx）による動的クラス構成を完全にサポートします。\n\nSCSSの@mixin内のネストされたクラス（&.oval、&.roundなど）や、TypeScript/webpackのエイリアスパス（@styles/、@components/など）も自動的にサポートします。(オプションで、styles[variable] のような動的にアクセスされるクラスは設定により未使用クラス検出から除外できます。)\n\nデザインシステムのカラー規則のチェック: 使用されている色がデザインシステムのカラーパレットで定義されたものであるかを確認します。.css、.scss、.lessファイルをサポートします。注: このルールは現在、プリプロセッサ変数（例: $variable、@variable）を使用する宣言については、最終的な色値を解決できないため、検証をスキップします。\n\n数値プロパティの制限のチェック: z-index、font-size、widthなどの数値CSSプロパティの制限をチェックし、一貫性を維持し、問題を防止します。.css、.scss、.lessファイルをサポートします。",
     "image_paths": ["style-setnry_ex.webp", "style-sentry_settings.webp"],
-    "tags": ["portfolio"],
+    "tags": ["portfolio", "tech", "capability"],
     "metadata": {
-      "project_summary": "style sentry, 미사용 스타일(css, sass, less, module css), 색상 규칙, 숫자 속성 제한 린팅 npm & vscode extension",
-      "link": "https://www.npmjs.com/package/style-sentry, https://github.com/ho1112/style-sentry#readme, https://marketplace.visualstudio.com/items?itemName=leehoyeon.style-sentry-vscode",
-      "tech_stack": [ "React", "TypeScript", "postcss", "VSCode", "vsce", "npm" ]
+      "project_summary": "CSS 코딩 스탠다드를 자동으로 검증하는 린터 도구 - 미사용 CSS 클래스 자동 검출 및 디자인 시스템 규칙 강제",
+      "link": "https://www.npmjs.com/package/style-sentry, https://marketplace.visualstudio.com/items?itemName=leehoyeon.style-sentry-vscode, https://mintora.me/blog/ja/codeLab/style-sentry/",
+      "tech_stack": [ "Node.js", "TypeScript", "PostCSS", "VSCode Extension API", "Babel Parser", "Glob", "Commander.js" ]
     }
   },
   {
-    "question": "LINE, 개인 프로젝트, 사이드 프로젝트, 포트폴리오",
-    "answer_ko": "",
-    "answer_ja": "",
-    "image_paths": [],
-    "tags": ["portfolio"],
+    "question": "SBI 증권 배당금 자동 수집 LINE 알림 봇, cha-LINE",
+    "answer_ko": "SBI 증권 웹사이트에서 배당금 정보를 자동으로 수집하여 LINE으로 알림을 전송하는 시스템을 개발했습니다. Google Apps Script를 활용한 Gmail 모니터링 및 웹훅 트리거, Playwright를 이용한 동적 웹 스크래핑 및 2단계 인증 처리를 구현했습니다. GCP VM 인스턴스에서 Express.js 서버를 운영하여 안정적인 자동화 시스템을 구축했습니다.",
+    "answer_ja": "SBI証券ウェブサイトから配当金情報を自動収集し、LINEで通知を送信するシステムを開発しました。Google Apps Scriptを使用したGmail監視とウェブフックトリガー、Playwrightを使用した動的ウェブスクレイピングと2段階認証処理を実装しました。GCP VMインスタンスでExpress.jsサーバーを運用し、安定した自動化システムを構築しました。",
+    "image_paths": ["https://mintora.me/posts/codeLab/cha-line/line_flex.avif"],
+    "tags": ["portfolio", "tech", "capability"],
     "metadata": {
-      "project_summary": "SBI証券の配当金自動取得LINEボット",
-      "link": "https://github.com/ho1112/cha-line",
-      "tech_stack": [ "React", "Next.js", "TypeScript", "line/bot-sdk", "express", "csv-parser", "Playwright", "GAS", "GCP VM" ]
+      "project_summary": "SBI 증권 배당금 자동 수집 및 LINE 알림 봇",
+      "link": "https://mintora.me/blog/ja/codeLab/cha-line/",
+      "tech_stack": [ "Next.js", "React", "TypeScript", "Playwright", "Google Apps Script", "LINE Messaging API SDK", "Express", "Gmail API", "GCP VM" ]
     }
   },
   {
-    "question": "RAG, 챗봇, 개인 프로젝트, 사이드 프로젝트, 포트폴리오",
-    "answer_ko": "",
-    "answer_ja": "",
+    "question": "RAG 챗봇, AI 기반 인터랙티브 포트폴리오 챗봇, Its Me",
+    "answer_ko": "RAG(Retrieval Augmented Generation) 기반의 대화형 포트폴리오 챗봇을 개발했습니다. LangChain + Google Gemini + Supabase를 활용한 지능형 질문-답변 시스템으로, 외부 사이트 임베딩 가능한 독립형 위젯으로 구현했습니다. Shadow DOM을 통한 CSS 격리 및 다국어/다크모드 지원으로 어떤 웹사이트에서도 안정적으로 동작합니다.",
+    "answer_ja": "RAG（Retrieval Augmented Generation）基盤の対話型ポートフォリオチャットボットを開発しました。LangChain + Google Gemini + Supabaseを活用した知的質問-回答システムで、外部サイト埋め込み可能な独立型ウィジェットとして実装しました。Shadow DOMによるCSS分離と多言語/ダークモード対応で、どのウェブサイトでも安定して動作します。",
     "image_paths": [],
-    "tags": ["portfolio", "ai"],
+    "tags": ["portfolio", "ai", "tech", "capability"],
     "metadata": {
-      "project_summary": "it's me project, 自分を紹介するチャットボット",
-      "link": "https://its-me-vert.vercel.app/, https://github.com/ho1112/its-me",
-      "tech_stack": [ "RAG", "gemini", "langchain", "supabase", "vite", "React", "Next.js", "TypeScript", "Tailwind CSS" ]
+      "project_summary": "AI 기반 인터랙티브 포트폴리오 챗봇 - Its Me",
+      "link": "https://its-me-vert.vercel.app/, https://mintora.me/blog/ja/codeLab/its-me/",
+      "tech_stack": [ "Next.js", "React", "TypeScript", "Tailwind CSS", "Shadcn/ui", "Google Gemini API", "LangChain", "Supabase", "Vite", "Vercel" ]
+    }
+  },
+  {
+    "question": "AI 페르소나 봇 댓글 자동화 시스템, Dead Internet Theory",
+    "answer_ko": "블로그 포스트에 AI 봇이 자동으로 댓글을 생성하는 독립적인 댓글 관리 시스템을 개발했습니다. 4개의 개성 있는 AI 페르소나가 자연스러운 대화를 통해 댓글을 생성하며, GitHub Actions Cron을 활용한 24시간 자동화된 봇 댓글 스케줄링을 구현했습니다. Gemini AI를 이용한 지능적인 댓글 생성 및 대화 맥락 분석, 댓글 대시보드 화면에서 블로그 댓글 관리(삭제, AI 봇 수동 트리거) 기능을 포함합니다.",
+    "answer_ja": "ブログポストにAIボットが自動でコメントを生成する独立したコメント管理システムを開発しました。4つの個性豊かなAIペルソナが自然な対話を通じてコメントを生成し、GitHub Actions Cronを活用した24時間自動化されたボットコメントスケジューリングを実装しました。Gemini AIを利用した知的なコメント生成及び対話コンテキスト分析、コメントダッシュボード画面でのブログコメント管理（削除、AIボット手動トリガー）機能を含みます。",
+    "image_paths": [],
+    "tags": ["portfolio", "ai", "tech", "capability"],
+    "metadata": {
+      "project_summary": "AI 페르소나 봇 댓글 자동화 시스템 - Dead Internet Theory",
+      "link": "https://mintora.me/blog/ja/codeLab/dead-internet-theory/",
+      "tech_stack": [ "Next.js", "React", "TypeScript", "Tailwind CSS", "Google Gemini API", "Supabase", "Vercel", "GitHub Actions" ]
     }
   },
   {
     "question": "왜 프론트엔드가 되었는가, 계기, 동기",
-    "answer_ko": "",
-    "answer_ja": "",
+    "answer_ko": "개발자 커리어를 시작할 때부터, 저는 사용자와 직접 닿는 인터페이스를 만드는 것에 가장 큰 매력을 느꼈습니다. 개발자가 되기 전부터 한 명의 사용자로서 다양한 웹 서비스를 즐겨왔기에, 눈앞의 화면이 어떻게 사용자와 상호작용하고 즐거움을 주는지에 대한 관심이 많았습니다. 특히, 코드 한 줄이 화면의 요소가 되고, 작은 컴포넌트들이 모여 하나의 완성된 인터페이스로 조립되어 가는 과정을 눈으로 직접 확인하는 것은 '구축하는 즐거움' 그 자체였습니다. 이러한 이유로 자연스럽게 프론트엔드 개발에 집중하게 되었고, 지금은 사용자의 피드백을 바탕으로 화면을 직접 개선하며 긍정적인 경험을 만들어가는 과정에서 가장 큰 보람을 느낍니다.",
+    "answer_ja": "開発者としてのキャリアをスタートさせた当初から、私はユーザーと直接触れ合うインターフェースを作ることに最も大きな魅力を感じていました。開発者になる前から一人のユーザーとして様々なウェブサービスを楽しんできたため、目の前の画面がどのようにユーザーと対話し、楽しさを提供するのかという点に強い関心がありました。**特に、一行のコードが画面の要素となり、小さなコンポーネントが集まって一つの完成されたインターフェースに組み上がっていく過程を直接目にすることは、「構築する楽しさ」そのものでした。**このような理由から自然とフロントエンド開発に集中するようになり、現在はユーザーのフィードバックを基に画面を直接改善し、ポジティブな体験を創り出していく過程に最も大きなやりがいを感じています。",
     "image_paths": [],
-    "tags": [""]
+    "tags": ["introduction", "career"]
   },
   {
     "question": "하고 싶은 일, 원하는 일과 업무, 희망 포지션, 희망 업계",
-    "answer_ko": "",
-    "answer_ja": "",
+    "answer_ko": "제가 가장 큰 보람을 느끼는 일은, 많은 사람들이 일상 속에서 즐겨 사용하는 유명한 toC 서비스를 만드는 것입니다. 개발자로서뿐만 아니라, 한 명의 사용자로서 저 자신도 애정을 가질 수 있는 프로덕트의 성공에 직접 기여하고 싶습니다. 장기적으로는, 팀에 기술적으로 기여하는 리드 엔지니어 역할에 관심이 있습니다. 앞에서 목소리를 내기보다는, 꾸준하고 신뢰할 수 있는 결과물로 동료들에게 좋은 영향을 주고, 함께 성장하는 환경을 만드는 것을 선호합니다. 화려하지는 않더라도, 묵묵히 맡은 역할을 완수하여 팀에 안정감을 주는 개발자가 되는 것이 저의 목표입니다.",
+    "answer_ja": "私が最もやりがいを感じるのは、多くの人々が日常的に楽しんで利用する有名なtoCサービスを創り上げることです。開発者としてだけでなく、一人のユーザーとしても私自身が愛着を持てるプロダクトの成功に直接貢献したいと考えています。 長期的には、チームに技術的に貢献するリードエンジニアの役割に興味があります。前に立って声を上げるよりは、着実で信頼できる成果物を通じて同僚に良い影響を与え、共に成長できる環境を作ることを好みます。派手さはありませんが、黙々と与えられた役割を全うし、チームに安定感をもたらす開発者になることが私の目標です。",
     "image_paths": [],
-    "tags": [""]
+    "tags": ["career", "capability", "introduction"]
   },
   {
-    "question": "トリブル·シューティング, 問題解決, 困ったこと",
-    "answer_ko": "",
-    "answer_ja": "",
+    "question": "강점과 약점, 장점과 단점, 어떤 사람",
+    "answer_ko": "화려한 재능으로 팀을 이끌기보다는, 묵묵히 제 역할을 완수하여 팀 전체의 안정성에 기여하는 것을 저의 강점이라고 생각합니다. 저는 '살아남기 위해' 끊임없이 공부하고 새로운 기술을 시도하며, 어떤 환경에서도 뒤처지지 않을 자신감이 있습니다. 거창한 목표는 없지만, 저에게 주어진 일은 기복 없이, 꾸준하게 신뢰할 수 있는 결과물로 만들어냅니다. 동료들에게는 '문제를 일으키지 않고, 믿고 맡길 수 있는 안정적인 개발자'로 기억되고 싶습니다.",
+    "answer_ja": "華麗な才能でチームを率いるよりは、黙々と自分の役割を果たし、チーム全体の安定性に貢献することが私の強みだと考えています。私は「生き残るため」に絶えず勉強し、新しい技術を試しており、どんな環境でも遅れを取らない自信があります。壮大な目標はありませんが、私に与えられた仕事は浮き沈みなく、着実に信頼できる成果物として作り上げます。同僚たちには「問題を起こさず、安心して任せられる安定した開発者」として記憶されたいです。",
     "image_paths": [],
-    "tags": [""]
+    "tags": ["introduction", "capability"]
   },
   {
-    "question": "長所と短所",
-    "answer_ko": "",
-    "answer_ja": "",
+    "question": "개발 철학, 기술적 강점, 기술을 대하는 자세",
+    "answer_ko": "저는 하나의 기술을 깊게 파고드는 것도 중요하지만, 다양한 기술 생태계가 어떻게 연결되고 발전하는지에 대한 '넓은 시야'를 갖는 것을 중요하게 생각합니다. 그래서 업무와 직접적인 관련이 없더라도, AI 모델의 최신 동향이나 새로운 프레임워크의 등장 같은 기술 트렌드를 꾸준히 따라가려고 노력합니다. 이러한 습관은, 당장의 문제를 해결할 때 특정 기술에만 갇히지 않고, 더 넓은 관점에서 최적의 해결책을 찾거나, 미래의 기술 부채를 피하는 결정을 내리는 데 큰 도움이 된다고 생각합니다.",
+    "answer_ja": "私は一つの技術を深く掘り下げることも重要ですが、多様な技術エコシステムがどのようにつながり、発展していくのかという「広い視野」を持つことを大切にしています。そのため、業務に直接関係がなくても、AIモデルの最新動向や新しいフレームワークの登場といった技術トレンドを着実に追いかけるよう努めています。このような習慣は、目先の問題を解決する際に特定の技術だけに囚われず、より広い視点から最適な解決策を見つけ出したり、将来の技術的負債を避ける決定を下したりする上で、大きな助けになると考えています。",
     "image_paths": [],
-    "tags": [""]
+    "tags": ["capability", "career"]
   },
   {
     "question": "취미, 주말에 뭐 해, 한가할 때",
-    "answer_ko": "최근에는 런닝을 하고 있습니다. 집 근처의 공원에서 일주일에 30km정도 달리고 있습니다. 햇빛이 없는 밤 시간에 달리는 것을 좋아합니다. 그리고 주말에는 개인 블로그 글 작성 및 업데이트 작업도 하고 있습니다.",
-    "answer_ja": "",
+    "answer_ko": "최근에는 러닝을 하고 있습니다. 집 근처의 공원에서 일주일에 30km정도 달리고 있습니다. 햇빛이 없는 밤 시간에 달리는 것을 좋아합니다. 그리고 주말에는 개인 블로그 글 작성 및 업데이트 작업도 하고 있습니다.",
+    "answer_ja": "最近はランニングをしています。家の近くの公園で週に30km程度走っています。日光のない夜時間に走ることを好みます。そして週末には個人ブログの記事作成や更新作業もしています。",
     "image_paths": [],
     "tags": ["introduction", "etc"]
   },
   {
-    "question": "最近、ハマっていること, 勉強していること",
+    "question": "최근 즐기고 있는 것, 공부하고 있는 것",
     "answer_ko": "최근에는 AI로 여러가지 작업하는데 빠져있습니다. 바이브 코딩, 블로그 포스트 작성, 공부용으로 폭 넓게 사용 중입니다. 개인 프로젝트와 실제 업무에서도 AI와 협업하고 있습니다.",
-    "answer_ja": "",
+    "answer_ja": "最近はAIで様々な作業に夢中になっています。バイブコーディング、ブログポスト作成、勉強用として幅広く使用中です。個人プロジェクトと実際の業務でもAIと協業しています。",
     "image_paths": [],
-    "tags": ["ai", "portfolio", "tech"]
+    "tags": ["ai", "portfolio", "tech", "etc"]
   },
   {
     "question": "주식, 재테크, 돈, 관심사, 좋아하는 것",
     "answer_ko": "꾸준히 NISA로 주식 투자를 하고 있습니다. 주로 S&P500을 추종하는 VOO를 매수하고 있습니다. 부자가 되고 싶어요.",
-    "answer_ja": "",
+    "answer_ja": "継続的にNISAで株式投資をしています。主にS&P500を追従するVOOを購入しています。お金持ちになりたいです。",
     "image_paths": [],
     "tags": ["etc"]
   },
@@ -376,7 +364,7 @@
     "answer_ko": "2016년 8월에 일본어 능력 시험(JLPT) 최고 등급인 N1을 취득했습니다. 비즈니스 레벨의 일본어 커뮤니케이션이 가능하여, 일본인 동료들과의 기술적인 논의나 설계 협업을 원활하게 진행할 수 있습니다.",
     "answer_ja": "2016年8月に日本語能力試験(JLPT)の最上位レベルであるN1を取得しました。ビジネスレベルでの日本語コミュニケーションが可能で、日本の同僚との技術的な議論や設計の協業を円滑に進めることができます。",
     "image_paths": [],
-    "tags": ["capability", "etc"],
+    "tags": ["introduction", "capability", "etc"],
     "metadata": {
       "qualification": "日本語能力試験1級 (JLPT N1)",
       "date": "2016년 08월"
@@ -403,9 +391,20 @@
     "metadata": {
       "university": "인하대학교 (INHA University, 仁荷大学)",
       "major": "日本言語文化学",
-      "period": "2009년 03월 ~ 2017년 02월"
+      "period": "2009년 03월 ~ 2017년 08월"
+    }
+  },
+  {
+    "question": "한국무역협회, SCIT마스터, 교육과정, 취업연계, 국비지원",
+    "answer_ko": "2017년에 한국무역협회의 SCIT마스터 과정에 참가하여 약 1년간 프로그래밍과 일본어 교육을 받았습니다. 이는 취업연계 국비지원 과정으로, 일본 진출을 위한 실무 중심의 교육을 통해 개발자로서의 기초를 다졌습니다. 이 과정을 통해 2018년에 일본으로 진출할 수 있는 기반을 마련했습니다.",
+    "answer_ja": "2017年に韓国貿易協会のSCITマスター過程に参加し、約1年間プログラミングと日本語教育を受けました。これは就職連携国費支援過程で、日本進出のための実務中心の教育を通じて開発者としての基礎を築きました。この過程を通じて2018年に日本に進出できる基盤を整えました。",
+    "image_paths": ["scit_33.jpg"],
+    "tags": ["introduction", "career", "etc"],
+    "metadata": {
+      "institution": "한국무역협회 (KITA)",
+      "program": "SCIT마스터 과정",
+      "period": "2017년",
+      "description": "프로그래밍 및 일본어 교육, 취업연계 국비지원 과정"
     }
   }
-
-
 ]
