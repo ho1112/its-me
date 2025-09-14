@@ -1,3 +1,7 @@
+// 1. itsme.json 파일 DB업로드
+// 2. 임베딩 생성 (generate-embeddings.js)
+// 3. 테스트
+
 const { createClient } = require('@supabase/supabase-js')
 const fs = require('fs')
 const path = require('path')

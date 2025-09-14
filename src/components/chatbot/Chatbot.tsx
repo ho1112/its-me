@@ -58,6 +58,7 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [shownTopics, setShownTopics] = useState<Set<string>>(new Set())
+  const [usedSuggestions, setUsedSuggestions] = useState<Set<string>>(new Set())
 
 
   // 언어 초기화
@@ -85,8 +86,11 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
 
   // 추천질문 버튼 렌더링 함수
   const renderSuggestions = (suggestions: string[], topic: string, messageId: string) => {
-    // 이미 표시된 주제라면 렌더링하지 않음
-    if (shownTopics.has(topic)) {
+    // 사용되지 않은 추천질문들만 필터링
+    const availableSuggestions = suggestions.filter(suggestion => !usedSuggestions.has(suggestion));
+    
+    // 사용 가능한 추천질문이 없으면 렌더링하지 않음
+    if (availableSuggestions.length === 0) {
       return null;
     }
 
@@ -96,17 +100,15 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
           💡 {currentLang === 'ko' ? '추천 질문' : 'おすすめの質問'}
         </p>
         <div className="flex flex-wrap gap-2 justify-center">
-          {suggestions.map((suggestion, index) => (
+          {availableSuggestions.slice(0, 3).map((suggestion, index) => (
             <Button
               key={index}
               variant="outline"
               size="sm"
               className={`text-xs px-3 py-1 h-auto ${currentTheme === 'dark' ? 'bg-gray-700 hover:bg-chomin-dark hover:text-white text-chomin-light' : 'bg-white hover:bg-chomin hover:text-white text-chomin'} border-chomin hover:border-chomin-dark transition-all duration-200`}
               onClick={async () => {
-                // fallback이 아닌 경우에만 주제를 표시된 것으로 기록
-                if (topic !== RECOMMENDATION_TOPICS.FALLBACK) {
-                  setShownTopics(prev => new Set(Array.from(prev).concat(topic)));
-                }
+                // 사용된 추천질문을 기록
+                setUsedSuggestions(prev => new Set(Array.from(prev).concat(suggestion)));
                 
                 // 해당 메시지의 추천질문을 즉시 제거하기 위해 메시지 업데이트
                 setChatMessages(prev => prev.map(msg => 
@@ -134,6 +136,7 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
                     headers: {
                       'Content-Type': 'application/json',
                       'x-chat-history': 'true', // 첫 메시지가 아님을 표시
+                      'x-used-suggestions': JSON.stringify(Array.from(usedSuggestions))
                     },
                     body: JSON.stringify({ message: suggestion, language: currentLang }),
                   })
@@ -240,6 +243,7 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
         headers: {
           'Content-Type': 'application/json',
           'x-chat-history': 'true', // 첫 메시지가 아님을 표시
+          'x-used-suggestions': JSON.stringify(Array.from(usedSuggestions))
         },
         body: JSON.stringify({ message: inputValue, language: currentLang }),
       })
