@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import ReactDOM from 'react-dom/client';
 import { Button } from '@/components/ui/button'
 import { NO_ANSWER_KEYWORD, RECOMMENDATION_TOPICS } from '@/utils/constants'
+import suggestionDecks from '@/data/suggestions.json'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ChatImage } from './ChatImage'
@@ -71,10 +72,8 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
       content: languageTexts[initialLang].welcome,
       role: 'assistant',
       timestamp: new Date(),
-                suggestions: initialLang === 'ko'
-            ? ['주요 기술 스택은 뭐야?', '가장 자신 있는 프로젝트는?', '성격의 장점과 단점 알려줘']
-            : ['主な技術スタックは何ですか？', '一番自信のあるプロ젝트は何ですか？', '性格の長所と短所を教えてください'],
-          topic: RECOMMENDATION_TOPICS.INITIAL
+      suggestions: suggestionDecks.initial[initialLang] || suggestionDecks.initial.ko,
+      topic: RECOMMENDATION_TOPICS.INITIAL
     }
     setChatMessages([welcomeMessage])
   }, [initialLang]);
@@ -191,9 +190,7 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
         content: languageTexts[initialLang].welcome,
         role: 'assistant',
         timestamp: new Date(),
-        suggestions: initialLang === 'ko' 
-          ? ['주요 기술 스택은 뭐야?', '가장 자신 있는 프로젝트는?', '성격의 장점과 단점 알려줘']
-          : ['主な技術スタックは何ですか？', '一番自信のあるプロジェクトは何ですか？', '性格の長所と短所を教えてください'],
+        suggestions: suggestionDecks.initial[initialLang] || suggestionDecks.initial.ko,
         topic: 'initial'
       }
       setChatMessages(prev => [updatedWelcomeMessage, ...prev.slice(1)])
