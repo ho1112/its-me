@@ -23,7 +23,7 @@ const embeddings = new GoogleGenerativeAIEmbeddings({
 })
 
 const model = new ChatGoogleGenerativeAI({
-  model: "gemini-2.5-flash",
+  model: "gemini-2.5-Pro",
   apiKey: process.env.GEMINI_API_KEY!,
   maxOutputTokens: 2048,
 })
