@@ -284,7 +284,7 @@ export async function OPTIONS() {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Headers': 'Content-Type, x-chat-history, x-used-suggestions',
     }
   })
 }
@@ -301,7 +301,7 @@ export async function POST(request: NextRequest) {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, x-chat-history, x-used-suggestions',
           }
         }
       )
@@ -323,7 +323,7 @@ export async function POST(request: NextRequest) {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, x-chat-history, x-used-suggestions',
           }
         }
       )
@@ -377,7 +377,7 @@ export async function POST(request: NextRequest) {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Headers': 'Content-Type, x-chat-history, x-used-suggestions',
       }
     })
 
@@ -393,7 +393,7 @@ export async function POST(request: NextRequest) {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, x-chat-history, x-used-suggestions',
           }
         }
       )
@@ -408,7 +408,7 @@ export async function POST(request: NextRequest) {
           headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, x-chat-history, x-used-suggestions',
           }
         }
       )
@@ -421,7 +421,7 @@ export async function POST(request: NextRequest) {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Headers': 'Content-Type, x-chat-history, x-used-suggestions',
         }
       }
     )
