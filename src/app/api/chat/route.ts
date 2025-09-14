@@ -342,11 +342,10 @@ export async function POST(request: NextRequest) {
 
     console.log(`✅ LangChain 응답 생성 완료:`, response.substring(0, 100) + '...')
 
-    // 벡터 검색 결과를 다시 가져와서 추천질문 생성에 사용 (임계값 0.7 적용)
+    // 벡터 검색 결과를 다시 가져와서 추천질문 생성에 사용 (임계값 0.5 적용)
     const searchResultsWithScore = await vectorStore.similaritySearchWithScore(message, 10);
     const searchResults = searchResultsWithScore
       .filter(([doc, score]) => score > 0.5)
-      .slice(0, 3)
       .map(([doc]) => doc);
     
     // 추천질문 생성
@@ -356,10 +355,29 @@ export async function POST(request: NextRequest) {
     
     const suggestions = generateSuggestions(language, searchResults, isFirstMessage, isSearchFailed, usedSuggestions);
 
-    // 이미지 정보 추출 - RAG 검색 결과에서 직접 가져오기
-    const imagePaths = searchResults.length > 0 
-      ? (searchResults[0].metadata as any)?.image_paths || []
-      : []
+    // 이미지 정보 추출 - 검색 결과의 내용으로 DB에서 조회
+    let imagePaths = []
+    if (searchResults.length > 0) {
+      // 첫 번째 검색 결과의 내용으로 DB에서 해당 레코드 찾기
+      const firstResult = searchResults[0];
+      const questionText = firstResult.pageContent.split('\n')[0]; // 첫 번째 줄이 보통 질문
+      
+      // DB에서 해당 질문과 일치하는 레코드의 image_paths 조회
+      const { data: imageData } = await supabase
+        .from('itsme')
+        .select('image_paths')
+        .eq('question', questionText)
+        .single();
+      
+      imagePaths = imageData?.image_paths || [];
+    }
+    
+    // 디버깅: 이미지 경로 로깅
+    console.log('=== 이미지 디버깅 ===')
+    console.log('검색 결과 개수:', searchResults.length)
+    console.log('첫 번째 결과 pageContent:', searchResults[0]?.pageContent)
+    console.log('추출한 질문 텍스트:', searchResults[0]?.pageContent?.split('\n')[0])
+    console.log('DB에서 조회한 이미지 경로:', imagePaths)
 
     return NextResponse.json({
       response,
