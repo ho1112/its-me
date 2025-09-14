@@ -135,7 +135,7 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
                     headers: {
                       'Content-Type': 'application/json',
                       'x-chat-history': 'true', // 첫 메시지가 아님을 표시
-                      'x-used-suggestions': JSON.stringify(Array.from(usedSuggestions))
+                      'x-used-suggestions': encodeURIComponent(JSON.stringify(Array.from(usedSuggestions)))
                     },
                     body: JSON.stringify({ message: suggestion, language: currentLang }),
                   })
@@ -245,7 +245,7 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
         headers: {
           'Content-Type': 'application/json',
           'x-chat-history': 'true', // 첫 메시지가 아님을 표시
-          'x-used-suggestions': JSON.stringify(Array.from(usedSuggestions))
+          'x-used-suggestions': encodeURIComponent(JSON.stringify(Array.from(usedSuggestions)))
         },
         body: JSON.stringify({ message: inputValue, language: currentLang }),
       })

@@ -351,7 +351,7 @@ export async function POST(request: NextRequest) {
     // 추천질문 생성
     const isFirstMessage = !request.headers.get('x-chat-history'); // 간단한 첫 메시지 체크
     const isSearchFailed = searchResults.length === 0 || response.includes(NO_ANSWER_KEYWORD);
-    const usedSuggestions = JSON.parse(request.headers.get('x-used-suggestions') || '[]');
+    const usedSuggestions = JSON.parse(decodeURIComponent(request.headers.get('x-used-suggestions') || '[]'));
     
     const suggestions = generateSuggestions(language, searchResults, isFirstMessage, isSearchFailed, usedSuggestions);
 
