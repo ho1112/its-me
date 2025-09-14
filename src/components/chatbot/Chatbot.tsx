@@ -254,6 +254,14 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
         const data = await response.json()
         // NO_ANSWER 키워드 제거하고 깔끔하게 표시
         const cleanResponse = data.response.replace('NO_ANSWER', '').trim();
+        
+        // 디버깅: 이미지 경로 로깅
+        console.log('=== 클라이언트 이미지 디버깅 ===')
+        console.log('API 응답 데이터:', data)
+        console.log('이미지 경로들:', data.imagePaths)
+        console.log('이미지 경로 타입:', typeof data.imagePaths)
+        console.log('이미지 경로 길이:', data.imagePaths?.length)
+        
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           content: cleanResponse,
