@@ -356,16 +356,11 @@ export async function POST(request: NextRequest) {
     
     const suggestions = generateSuggestions(language, searchResults, isFirstMessage, isSearchFailed, usedSuggestions);
 
-    // 이미지 정보 추출 - ragChain과 동일한 검색을 다시 실행하여 이미지 경로들 가져오기
-    const { data: imageResults } = await supabase
-      .from('itsme')
-      .select('image_paths')
-      .textSearch('question', message)  // 질문과 유사한 항목 검색
-      .limit(1)
-    
-    const imagePaths = imageResults?.[0]?.image_paths || []
+    // 이미지 정보 추출 - RAG 검색 결과에서 직접 가져오기
+    const imagePaths = searchResults.length > 0 
+      ? (searchResults[0].metadata as any)?.image_paths || []
+      : []
 
-    
     return NextResponse.json({
       response,
       language,
