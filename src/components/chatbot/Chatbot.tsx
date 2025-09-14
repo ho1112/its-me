@@ -158,9 +158,14 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
                     throw new Error('API 호출 실패')
                   }
                 } catch (error) {
+                  // 디버깅을 위한 에러 로깅
+                  console.error('추천질문 API 호출 에러:', error);
+                  console.error('API URL:', apiUrl);
+                  console.error('추천질문:', suggestion);
+                  
                   const errorMessage: Message = {
                     id: (Date.now() + 1).toString(),
-                    content: languageTexts[currentLang].error,
+                    content: `${languageTexts[currentLang].error} (디버그: ${error instanceof Error ? error.message : 'Unknown error'})`,
                     role: 'assistant',
                     timestamp: new Date()
                   }
@@ -263,9 +268,14 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
         throw new Error('API 호출 실패')
       }
     } catch (error) {
+      // 디버깅을 위한 에러 로깅
+      console.error('API 호출 에러:', error);
+      console.error('API URL:', apiUrl);
+      console.error('요청 데이터:', { message: inputValue, language: currentLang });
+      
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: languageTexts[currentLang].error,
+        content: `${languageTexts[currentLang].error} (디버그: ${error instanceof Error ? error.message : 'Unknown error'})`,
         role: 'assistant',
         timestamp: new Date()
       }
