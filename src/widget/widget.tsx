@@ -15,6 +15,11 @@ function initWidget() {
 
   // Shadow DOM 안에 React 앱을 렌더링할 div 생성
   const appRoot = document.createElement('div');
+  appRoot.style.cssText = `
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: contain;
+  `;
   shadowRoot.appendChild(appRoot);
 
   // CSS를 Shadow DOM 내부에 직접 주입
