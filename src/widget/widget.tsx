@@ -13,7 +13,6 @@ function initWidget() {
   // 컨테이너 자체에 격리 스타일 적용
   container.style.cssText = `
     position: relative;
-    z-index: 1000;
     isolation: isolate;
     overscroll-behavior: contain;
   `;
@@ -31,6 +30,12 @@ function initWidget() {
     position: relative;
     isolation: isolate;
   `;
+  
+  // 휠 이벤트 전파만 차단 (기본 동작은 유지)
+  appRoot.addEventListener('wheel', (e) => {
+    e.stopPropagation();
+  }, { passive: true });
+  
   shadowRoot.appendChild(appRoot);
 
   // CSS를 Shadow DOM 내부에 직접 주입
