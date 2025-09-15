@@ -10,6 +10,14 @@ function initWidget() {
   const container = document.getElementById('its-me-chatbot-container');
   if (!container) return;
 
+  // 컨테이너 자체에 격리 스타일 적용
+  container.style.cssText = `
+    position: relative;
+    z-index: 1000;
+    isolation: isolate;
+    overscroll-behavior: contain;
+  `;
+
   // Shadow DOM 루트 생성
   const shadowRoot = container.attachShadow({ mode: 'open' });
 
@@ -19,6 +27,9 @@ function initWidget() {
     height: 100%;
     overflow: hidden;
     overscroll-behavior: contain;
+    touch-action: none;
+    position: relative;
+    isolation: isolate;
   `;
   shadowRoot.appendChild(appRoot);
 
