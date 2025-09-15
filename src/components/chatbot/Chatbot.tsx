@@ -125,6 +125,9 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
                 }
                 setChatMessages(prev => [...prev, userMessage])
                 
+                // 추천질문 클릭 시에도 자동 스크롤 비활성화
+                setShouldAutoScroll(false)
+                
                 // 추천질문을 자동으로 전송
                 setInputValue(suggestion);
                 setIsLoading(true);
@@ -204,17 +207,20 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
 
   // 스크롤 위치 감지 및 자동 스크롤
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    // 스크롤 이벤트 전파 차단
+    e.stopPropagation()
+    
     const { scrollTop, scrollHeight, clientHeight } = e.currentTarget
     const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10 // 10px 여유
     setShouldAutoScroll(isAtBottom)
   }
 
-  // 조건부 자동 스크롤
+  // 조건부 자동 스크롤 (메시지 변경 시에만)
   useEffect(() => {
     if (shouldAutoScroll && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [chatMessages, shouldAutoScroll])
+  }, [chatMessages]) // shouldAutoScroll 의존성 제거
 
 
 
@@ -232,6 +238,9 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
     setChatMessages(prev => [...prev, userMessage])
     setInputValue('')
     setIsLoading(true)
+    
+    // 사용자 메시지 추가 시에는 자동 스크롤 비활성화
+    setShouldAutoScroll(false)
 
     try {
       // props로 받은 apiUrl을 사용합니다.
@@ -261,6 +270,9 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
           topic: data.topic || null
         }
         setChatMessages(prev => [...prev, assistantMessage])
+        
+        // 응답 받았을 때는 자동 스크롤 다시 활성화
+        setShouldAutoScroll(true)
       } else {
         throw new Error('API 호출 실패')
       }
@@ -329,7 +341,10 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
               onScroll={handleScroll}
               style={{
                 maxHeight: 'calc(100vh - 200px)',
-                overscrollBehavior: 'contain'
+                overscrollBehavior: 'contain',
+                touchAction: 'pan-y',
+                position: 'relative',
+                zIndex: 1000
               }}
             >
               {chatMessages.map((message) => (
