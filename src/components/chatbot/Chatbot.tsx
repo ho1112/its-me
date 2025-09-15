@@ -158,14 +158,9 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
                     throw new Error('API 호출 실패')
                   }
                 } catch (error) {
-                  // 디버깅을 위한 에러 로깅
-                  console.error('추천질문 API 호출 에러:', error);
-                  console.error('API URL:', apiUrl);
-                  console.error('추천질문:', suggestion);
-                  
                   const errorMessage: Message = {
                     id: (Date.now() + 1).toString(),
-                    content: `${languageTexts[currentLang].error} (디버그: ${error instanceof Error ? error.message : 'Unknown error'})`,
+                    content: languageTexts[currentLang].error,
                     role: 'assistant',
                     timestamp: new Date()
                   }
@@ -255,12 +250,6 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
         // NO_ANSWER 키워드 제거하고 깔끔하게 표시
         const cleanResponse = data.response.replace('NO_ANSWER', '').trim();
         
-        // 디버깅: 이미지 경로 로깅
-        console.log('=== 클라이언트 이미지 디버깅 ===')
-        console.log('API 응답 데이터:', data)
-        console.log('이미지 경로들:', data.imagePaths)
-        console.log('이미지 경로 타입:', typeof data.imagePaths)
-        console.log('이미지 경로 길이:', data.imagePaths?.length)
         
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
@@ -276,14 +265,9 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
         throw new Error('API 호출 실패')
       }
     } catch (error) {
-      // 디버깅을 위한 에러 로깅
-      console.error('API 호출 에러:', error);
-      console.error('API URL:', apiUrl);
-      console.error('요청 데이터:', { message: inputValue, language: currentLang });
-      
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: `${languageTexts[currentLang].error} (디버그: ${error instanceof Error ? error.message : 'Unknown error'})`,
+        content: languageTexts[currentLang].error,
         role: 'assistant',
         timestamp: new Date()
       }
@@ -343,6 +327,10 @@ export default function Chatbot({ apiUrl, initialLang = 'ja', initialTheme = 'li
             <div 
               className="flex-1 overflow-y-auto p-6 space-y-4 min-h-0"
               onScroll={handleScroll}
+              style={{
+                maxHeight: 'calc(100vh - 200px)',
+                overscrollBehavior: 'contain'
+              }}
             >
               {chatMessages.map((message) => (
                 <div key={message.id}>

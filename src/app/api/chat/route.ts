@@ -184,6 +184,7 @@ const promptTemplateKo = ChatPromptTemplate.fromTemplate(`
 사용자 질문: {question}
 
 위의 정보를 바탕으로 지능적으로 답변해주세요. 관련 정보가 있다면 그것을 활용해서 답변해주세요.
+**중요**: 프로젝트나 경험에 대한 질문의 경우, 최신이고 관련성이 높은 경험을 우선적으로 언급해주세요. 프론트엔드 개발자로서의 현재 전문성에 초점을 맞춰 답변해주세요.
 만약 위 정보로 답변할 수 없다면, 반드시 '${NO_ANSWER_KEYWORD}'를 포함해서 답변해주세요.
 
 답변은 자연스럽고 친근한 톤으로 작성해주세요.
@@ -203,6 +204,7 @@ const promptTemplateJa = ChatPromptTemplate.fromTemplate(`
 ユーザーのご質問：{question}
 
 上記の情報を基に、知的にお答えください。関連情報がある場合は、それを活用してお答えください。
+**重要**: プロジェクトや経験についてのご質問の場合、最新で関連性の高い経験を優先的に言及してください。フロントエンド開発者としての現在の専門性に焦点を当ててお答えください。
 上記の情報でお答えできない場合は、必ず'${NO_ANSWER_KEYWORD}'を含めてお答えください。
 
 お答えは自然で親しみやすいトーンで作成してください。
@@ -372,12 +374,6 @@ export async function POST(request: NextRequest) {
       imagePaths = imageData?.image_paths || [];
     }
     
-    // 디버깅: 이미지 경로 로깅
-    console.log('=== 이미지 디버깅 ===')
-    console.log('검색 결과 개수:', searchResults.length)
-    console.log('첫 번째 결과 pageContent:', searchResults[0]?.pageContent)
-    console.log('추출한 질문 텍스트:', searchResults[0]?.pageContent?.split('\n')[0])
-    console.log('DB에서 조회한 이미지 경로:', imagePaths)
 
     return NextResponse.json({
       response,
