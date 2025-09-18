@@ -51,6 +51,7 @@ Thumbs.db
 
 # development notes
 devNote.md
+DESIGN.md
 
 # widget build artifacts
 dist/widget.iife.js
