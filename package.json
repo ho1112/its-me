@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:widget": "vite build && cp dist/widget.iife.js public/widget.js"
+    "build:widget": "vite build && cp dist/widget.iife.js public/widget.js",
+    "sync-data": "node scripts/sync-data.js",
+    "sync-data:force": "node scripts/sync-data.js --force"
   },
   "dependencies": {
     "@google/genai": "^1.14.0",
