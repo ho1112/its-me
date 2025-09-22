@@ -144,10 +144,6 @@ its-me/
 ### Reactコンポーネント
 Next.jsやReactアプリでは、動的スクリプトローディングを使用してコンポーネントとして利用できます。
 
----
-
----
-
 # Its Me - AI 기반 대화형 포트폴리오 챗봇
 
 > RAG(Retrieval Augmented Generation) 기술을 활용한 개인 포트폴리오 챗봇
@@ -291,5 +287,3 @@ its-me/
 
 ### React 컴포넌트
 Next.js나 React 앱에서는 동적 스크립트 로딩을 사용해서 컴포넌트로 활용할 수 있습니다.
-
----
